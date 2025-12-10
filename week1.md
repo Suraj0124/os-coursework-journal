@@ -128,8 +128,8 @@ VirtualBox Settings:
 •	Subnet Mask:	255.255.255.0
 •	Gateway: None (Host-Only network)
 •	DNS: From host (optional)
-![Server Host](/image/week1/serverho1.png)
- ![Server NAT](/image/week1/servernat.png)
+![Server Host](image/week1/serverho1.png)
+ ![Server NAT](image/week1/servernat.png)
  
 
 
