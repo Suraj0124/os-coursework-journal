@@ -15,8 +15,7 @@ IP Address: 192.168.56.103/24
 
 System Architecture Diagram showing both systems and network connections
 
-![System Architecture](images/week1/System Architecture Diagram.png)
-
+![image alt] (https://github.com/Suraj0124/os-coursework-journal/blob/2a01b4d898680d7689c7c84de22f9df7500fbcac/image/week1/System%20Architecture%20Diagram.png)
 
 Distribution Selection Justification comparing your chosen server distribution with alternatives
 Ubuntu Server
