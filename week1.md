@@ -15,8 +15,7 @@ IP Address: 192.168.56.103/24
 
 System Architecture Diagram showing both systems and network connections
 
-![System Architecture](images/week1/System Architecture Diagram.png)
-
+![System Architecture Diagram](https://github.com/Suraj0124/os-coursework-journal/blob/2a01b4d898680d7689c7c84de22f9df7500fbcac/image/week1/System%20Architecture%20Diagram.png)
 
 Distribution Selection Justification comparing your chosen server distribution with alternatives
 Ubuntu Server
@@ -116,5 +115,74 @@ Why not alternatives of workstations?
 •	Debian Desktop: is tested, more dated in packages and a wee bit more difficult to navigate.
 
 At that, Ubuntu Workstation is right in the middle of convenience, functionality and general compatibility with our projects.
+
+Network configuration documentation covering VirtualBox settings and IP addressing
+
+This documentation describes the network setup for a VirtualBox-based environment containing:
+Ubuntu Server
+VirtualBox Settings:
+•	Adapter 1 → Host-Only Adapter (vboxnet0)
+•	Adapter 2 →NAT
+•	IP Address: 192.168.56.103/24
+•	Subnet Mask:	255.255.255.0
+•	Gateway: None (Host-Only network)
+•	DNS: From host (optional)
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+Ubuntu Workstation
+•	Adapter 1 → NAT
+•	Adapter 2 → Host-Only Adapter 
+•	Host-Only IP Address:192.168.56.102
+•	Subnet Mask:255.255.255.0
+•	Gateway:192.168.56.1 (host)
+•	DNS: Uses NAT DHCP DNS
+   
+
+
+Host (Laptop)
+The system uses two VirtualBox network modes:
+•	Host-Only Network → internal communication
+•	NAT Network → internet access 
+Using a CLI, document system specifications using `uname`, `free`, `df -h`, `ip addr`, and `lsb_release`
+ 
+•	Kernel Version: 6.14.0-27-generic
+•	Architecture: x86_64 (64-bit)
+•	Operating System: GNU/Linux
+•	Build: Ubuntu SMP, PREEMPT_DYNAMIC
+ 
+•	Total RAM: 3.8 GiB
+•	Used RAM: 1.0 GiB
+•	Available RAM: 2.8 GiB
+•	Swap: 0 B (no swap configured
+ 
+•	Primary Disk Size: 25 GB
+•	Used: 5.1 GB
+•	Available: 19 GB
+•	Root Filesystem: /dev/sda2
+
+ 
+Interface	Network Type	IP Address	Purpose
+lo	Loopback	127.0.0.1	Local processes
+enp0s3	NAT	10.0.2.15/24	Internet access
+enp0s8	Host-Only	192.168.56.102/24	Communication with server
+
+ 
+•	Distro: Ubuntu
+•	Version: 24.04.3 LTS
+•	Codename: noble
+•	Support: Long-term support (LTS)
+
 
 
