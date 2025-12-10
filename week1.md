@@ -121,14 +121,15 @@ Network configuration documentation covering VirtualBox settings and IP addressi
 This documentation describes the network setup for a VirtualBox-based environment containing:
 Ubuntu Server
 VirtualBox Settings:
-•	Adapter 1 → Host-Only Adapter (vboxnet0)
-•	Adapter 2 →NAT
+
+ •	Adapter 1 → Host-Only Adapter (vboxnet0)
+ •	Adapter 2 →NAT
 •	IP Address: 192.168.56.103/24
 •	Subnet Mask:	255.255.255.0
 •	Gateway: None (Host-Only network)
 •	DNS: From host (optional)
-![Server Host](../image/week1/serverho1.png)
- ![Server NAT](../image/week1/servernat.png)
+![Server Host](/image/week1/serverho1.png)
+ ![Server NAT](/image/week1/servernat.png)
  
 
 
