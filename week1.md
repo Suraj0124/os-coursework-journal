@@ -15,6 +15,7 @@ IP Address: 192.168.56.103/24
 
 System Architecture Diagram showing both systems and network connections
 
+![System Architecture](images/week1/System Architecture Diagram.png)
 
 
 Distribution Selection Justification comparing your chosen server distribution with alternatives
