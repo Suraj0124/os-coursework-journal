@@ -1,150 +1,82 @@
 # Week 2: Security Planning and Testing Methodology
 
-## 1. Performance Testing Plan
-
-### Remote Monitoring Approach
-
-Agentless monitoring via SSH using standard CLI tools - no GUI applications on headless server.
-
-### Tools Selected
-
-| Tool | Purpose | Key Command | Use Case |
-|------|---------|-------------|----------|
-| **top** | Quick process monitoring | `top` then `P` (CPU) or `M` (memory) | Rapid system checks |
-| **htop** | Interactive monitoring | `htop` | Detailed process analysis |
-| **btop** | Modern comprehensive view | `btop` | Full system overview |
-| **ps aux** | Process snapshot | `ps aux --sort=-%cpu` | Scripting and automation |
-| **nmon** | Data export | `nmon -a -o output.csv` | Performance data collection |
-
-**Installation:**
-
-```bash
-sudo apt install htop btop nmon
-```
-
-### Testing Methodology
-
-#### Phase 1: Baseline (Idle State)
-
-- 5-minute idle measurement
-- Document CPU, memory, disk, network baseline
-
-**Screenshots:**
-- System idle - top
-- System idle - htop
-- System idle - btop
-
-#### Phase 2: Stress Testing
-
-Tool: `stress` (lightweight load generator)
-
-```bash
-sudo apt install stress
-stress --cpu 4 --timeout 60&
-```
-
-**Results:**
-- top during stress
-- btop during stress
-- nmon during stress
-- Process tree
-
-**Observations:**
-- All monitoring tools successfully captured resource spikes
-- SSH remained stable during CPU stress
-- System recovered immediately after test
-- Ready for Week 6 performance evaluation
+## Overview
+This week focuses on designing a security baseline and establishing a performance testing methodology for the Linux server system.
 
 ---
 
-## 2. Security Implementation
+## 1. Performance Testing Plan
+
+### Remote Monitoring Methodology
+
+**Approach:**
+- Describe how you'll monitor the server remotely from your workstation via SSH
+- Explain which commands and tools you'll use (e.g., `top`, `htop`, `vmstat`, `iostat`, `netstat`)
+- Detail how you'll collect and store performance data
+
+**Testing Approach:**
+- **Baseline Testing:** Measure system performance at idle state
+- **Load Testing:** Apply various workloads to stress different components
+- **Comparison:** Compare results across different scenarios
+- **Documentation:** How you'll record and present findings
+
+**Example Structure:**
+```
+Monitoring will be conducted via SSH from the workstation using:
+- CPU monitoring: top, mpstat
+- Memory monitoring: free -h, vmstat
+- Disk I/O: iostat, df -h
+- Network: ss, netstat, iftop
+- Custom script: monitor-server.sh (to be developed in Week 5)
+```
+
+---
+
+## 2. Security Configuration Checklist
 
 ### SSH Hardening
-
-#### Key Generation: Ed25519
-
-```bash
-ssh-keygen -t ed25519 -C "server-key"
-ssh-copy-id adminuser@192.168.10.10
-```
-
-**Why Ed25519 over RSA:**
-- **Stronger:** 256-bit = 3072-4096 bit RSA equivalent
-- **Faster:** Much better performance for key generation and authentication
-- **Safer:** Resistant to timing attacks and implementation errors
-
-#### SSH Configuration Changes
-
-**Backup first:**
-
-```bash
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
-sudo nano /etc/ssh/sshd_config
-```
-
-**Changes made:**
-
-```bash
-PasswordAuthentication no       # Eliminates brute-force attacks
-PubkeyAuthentication yes        # Requires cryptographic key
-PermitRootLogin no              # Prevents direct root access
-Port 2424                       # Reduces automated scans
-```
-
-**Restart SSH:**
-
-```bash
-sudo systemctl restart sshd
-```
+- [ ] Configure SSH key-based authentication
+- [ ] Disable password authentication
+- [ ] Disable root login
+- [ ] Change default SSH port (optional but recommended)
+- [ ] Configure SSH idle timeout
+- [ ] Limit SSH access to specific users/groups
 
 ### Firewall Configuration
+- [ ] Install and enable firewall (ufw/iptables)
+- [ ] Default deny incoming traffic
+- [ ] Allow SSH from workstation IP only
+- [ ] Allow required application ports
+- [ ] Block all other connections
+- [ ] Document all rules
 
-```bash
-# Set default policies
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
+### Mandatory Access Control
+- [ ] Choose SELinux or AppArmor (depending on distribution)
+- [ ] Enable MAC system
+- [ ] Configure policies for critical services
+- [ ] Document enforcement mode
+- [ ] Plan monitoring approach
 
-# Allow SSH from workstation only
-sudo ufw allow from 192.168.10.3 to any port 2424
+### Automatic Updates
+- [ ] Configure unattended-upgrades (Ubuntu/Debian) or dnf-automatic (Fedora/RHEL)
+- [ ] Set update frequency
+- [ ] Configure which packages to auto-update
+- [ ] Set up update notifications
+- [ ] Plan reboot strategy for kernel updates
 
-# Enable firewall
-sudo ufw enable
-sudo ufw status verbose
-```
+### User Privilege Management
+- [ ] Create non-root administrative user
+- [ ] Configure sudo access
+- [ ] Implement principle of least privilege
+- [ ] Remove unnecessary user accounts
+- [ ] Set strong password policies (if passwords used)
 
-**Security Impact:** SSH access restricted to single trusted IP
-
-### User and Privilege Management
-
-```bash
-# Create administrative user
-sudo adduser adminuser
-sudo usermod -aG sudo adminuser
-
-# Verify
-groups adminuser
-sudo -l -U adminuser
-```
-
-### AppArmor (Mandatory Access Control)
-
-```bash
-sudo aa-status
-```
-
-- Pre-installed on Ubuntu
-- Confines applications to security profiles
-- Will configure profiles in Week 5
-
-### Automatic Security Updates
-
-```bash
-sudo apt install unattended-upgrades
-sudo dpkg-reconfigure --priority=low unattended-upgrades
-sudo systemctl status unattended-upgrades
-```
-
-**Rationale:** Reduces vulnerability window for known exploits
+### Network Security
+- [ ] Configure host-based firewall
+- [ ] Disable unnecessary network services
+- [ ] Plan fail2ban implementation (Week 5)
+- [ ] Document network topology
+- [ ] Plan intrusion detection approach
 
 ---
 
@@ -152,114 +84,148 @@ sudo systemctl status unattended-upgrades
 
 ### Threat 1: Brute Force SSH Attacks
 
-**Description:** Automated password guessing using tools like Hydra
+**Description:**  
+Attackers attempt to gain unauthorized access by repeatedly trying username/password combinations on the SSH service.
 
-**Likelihood:** High | **Impact:** Critical
+**Risk Level:** High
 
-**Mitigations:**
-- ✅ Password authentication disabled → eliminates attack vector
-- ✅ Key-based auth only → requires private key possession
-- ✅ Firewall restricts to workstation IP → blocks remote attempts
-- ✅ Custom port 2424 → reduces automated scans
-
-**Risk Level:** Very Low after mitigations
-
-### Threat 2: Network Reconnaissance
-
-**Description:** Port scanning with nmap to discover vulnerabilities
-
-**Likelihood:** High | **Impact:** Medium-High
-
-**Mitigations:**
-- ✅ UFW default deny → all ports filtered
-- ✅ Single-IP whitelist → only workstation can connect
-- ✅ Minimal services → only SSH running
-
-**Risk Level:** Low after mitigations
-
-### Threat 3: Privilege Escalation
-
-**Description:** Compromised user attempts to gain root access
-
-**Likelihood:** Medium | **Impact:** Critical
-
-**Mitigations:**
-- ✅ Root login disabled → can't directly access root
-- ✅ Sudo required → creates audit trail
-- ✅ AppArmor enabled → constrains application privileges
-- ✅ Automatic updates → patches known vulnerabilities
-
-**Risk Level:** Low-Medium after mitigations
+**Mitigation Strategies:**
+- Implement key-based authentication only (disable passwords)
+- Configure fail2ban to ban IPs after failed login attempts
+- Restrict SSH access to specific IP addresses via firewall
+- Use non-standard SSH port (security through obscurity)
+- Monitor auth logs for suspicious activity
 
 ---
 
-## 4. Reflection
+### Threat 2: Privilege Escalation
 
-### Key Decisions
+**Description:**  
+An attacker with limited access exploits vulnerabilities to gain root or administrative privileges.
 
-#### 1. Ed25519 over RSA
-- Stronger security with smaller keys
-- Better performance for automation
-- Modern standard
+**Risk Level:** Medium-High
 
-#### 2. Changed SSH Port to 2424
-- Reduces log noise from bots
-- Acknowledged as "security through obscurity"
-- Real security from keys + firewall
+**Mitigation Strategies:**
+- Apply automatic security updates to patch known vulnerabilities
+- Configure sudo with minimal necessary permissions
+- Implement mandatory access control (SELinux/AppArmor)
+- Regular security audits using Lynis
+- Monitor sudo logs for unauthorized attempts
 
-#### 3. Single-IP Firewall Whitelist
-- Strongest network control
-- Zero-trust approach
-- No usability impact for this architecture
+---
 
-#### 4. Automatic Security Updates
-- Industry best practice
-- Reduces vulnerability window
-- Low risk (security updates well-tested)
+### Threat 3: Unauthorized Network Access
 
-### Research Insights
+**Description:**  
+Attackers attempt to access services or scan for vulnerabilities through unprotected network ports.
 
-**Defense in Depth:** Multiple independent security layers more effective than single strong control
+**Risk Level:** Medium
 
-- **Network layer:** Firewall
-- **Authentication:** SSH keys
-- **Access control:** No root login + sudo
-- **MAC:** AppArmor
-- **Monitoring:** Planned fail2ban (Week 5)
+**Mitigation Strategies:**
+- Configure restrictive firewall rules (default deny)
+- Only allow SSH from specific workstation IP
+- Disable and remove unnecessary network services
+- Regular port scanning with nmap to verify configuration
+- Implement intrusion detection with fail2ban
 
-**Monitoring Overhead:** All tools <3% CPU impact, won't affect Week 6 performance tests
+---
 
-### Anticipated Challenges
+## 4. Reflections and Learning
 
-| Challenge | Mitigation |
-|-----------|-----------|
-| **SSH key loss** | Backup keys securely; VirtualBox console access as emergency |
-| **Firewall lockout** | Test rules before enabling; keep console access |
-| **Config syntax errors** | Backup files; use `sshd -t` to test before applying |
-| **Port confusion** | Create SSH config file with port settings |
-| **Security vs testing** | Plan firewall rules for test apps; document adjustments |
+### Key Considerations:
+- What security principles are most important for a headless server?
+- How do security measures impact system performance?
+- What trade-offs exist between security and usability?
+- Which threats pose the greatest risk to this specific deployment?
 
-### Next Steps (Week 3)
+### Questions to Explore:
+- How will I verify that security controls are working?
+- What monitoring is needed to detect security incidents?
+- How will performance testing interact with security controls?
 
-- Select diverse applications (CPU, RAM, I/O, network, server workloads)
-- Plan firewall rules for test applications
-- Verify monitoring compatibility with planned apps
-- Document expected resource profiles
+### Next Steps:
+- Finalize application selection for performance testing (Week 3)
+- Prepare for initial system configuration (Week 4)
+- Document any additional security considerations identified
 
-### Skills Developed
+---
 
-- **Technical:** SSH hardening, firewall config, user management, remote monitoring
-- **Analytical:** Threat modeling, risk assessment, trade-off analysis
-- **Professional:** Technical documentation, decision justification
+## 5. Command Line Evidence
+
+### Screenshot 1: SSH Configuration Review
+![SSH Config Screenshot](images/week2_ssh_config.png)
+*Caption: Reviewing current SSH configuration settings*
+
+**Command:**
+```bash
+cat /etc/ssh/sshd_config
+```
+
+**Purpose:**  
+[Explain what you're checking and why]
+
+---
+
+### Screenshot 2: Firewall Status Check
+![Firewall Status Screenshot](images/week2_firewall_status.png)
+*Caption: Current firewall configuration*
+
+**Command:**
+```bash
+sudo ufw status verbose
+```
+
+**Purpose:**  
+[Explain what you're verifying]
+
+---
+
+### Screenshot 3: Security Updates Available
+![Security Updates Screenshot](images/week2_security_updates.png)
+*Caption: Checking for available security patches*
+
+**Command:**
+```bash
+apt list --upgradable | grep security
+```
+
+**Purpose:**  
+[Explain why you're checking for updates]
+
+---
+
+### Screenshot 4: System Information
+![System Info Screenshot](images/week2_system_info.png)
+*Caption: Documenting server system specifications*
+
+**Commands:**
+```bash
+uname -a
+lsb_release -a
+free -h
+df -h
+```
+
+**Purpose:**  
+[Explain what system information you're gathering]
+
+---
+
+### Screenshot 5: Network Configuration
+![Network Config Screenshot](images/week2_network_config.png)
+*Caption: Server network settings and IP addressing*
+
+**Command:**
+```bash
+ip addr show
+ip route show
+```
+
+**Purpose:**  
+[Explain network configuration you're documenting]
 
 ---
 
 ## References
 
-[1] "OpenSSH Security Best Practices," Ubuntu Documentation, 2024.  
-[2] D. J. Bernstein et al., "Ed25519: High-speed high-security signatures," 2012.  
-[3] "SSH Key Management," Venafi Trust Protection Platform, 2024.
-
----
-
-*Week 2 Completed: December 12, 2025*  
+[1] "
