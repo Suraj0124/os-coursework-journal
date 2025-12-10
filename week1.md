@@ -15,7 +15,7 @@ IP Address: 192.168.56.103/24
 
 System Architecture Diagram showing both systems and network connections
 
-![System Architecture Diagram](https://github.com/Suraj0124/os-coursework-journal/blob/2a01b4d898680d7689c7c84de22f9df7500fbcac/image/week1/System%20Architecture%20Diagram.png)
+![System Architecture Diagram](../image/week1/System%20Architecture%20Diagram.png)
 
 Distribution Selection Justification comparing your chosen server distribution with alternatives
 Ubuntu Server
@@ -127,7 +127,8 @@ VirtualBox Settings:
 •	Subnet Mask:	255.255.255.0
 •	Gateway: None (Host-Only network)
 •	DNS: From host (optional)
- 
+![Server Host](../image/week1/serverho1.png)
+ ![Server NAT](../image/week1/servernat.png)
  
 
 
