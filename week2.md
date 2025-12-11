@@ -14,7 +14,7 @@ This week focuses on designing a comprehensive security baseline and establishin
 - Metrics will be captured at regular intervals to establish baseline and stress conditions
 
 **Tools and Commands:**
-
+```bash
 # CPU monitoring
 top -bn1 | grep "Cpu(s)"
 mpstat 1 5
@@ -35,43 +35,43 @@ nethogs -t
 ### Command-Line Evidence
 
 **System Information:**
-![uname command](/image/week2/uname.png)
+![uname command](image/week2/uname.png)
 *Figure 1: System information using `uname -a` showing kernel version and architecture*
 
 **System Statistics:**
-![iostat command](/image/week2/iostat.png)
+![iostat command](image/week2/iostat.png)
 *Figure 2: I/O statistics with `iostat` for disk performance baseline*
 
 **Process Listing:**
-![ls command](/image/week2/ls.png)
+![ls command](image/week2/ls.png)
 *Figure 3: Directory listing and file structure verification*
 
 **Server Status:**
-![server running](/image/week2/server-running.png)
+![server running](image/week2/server-running.png)
 *Figure 4: Server operational status and running services*
 
 **SSH Configuration:**
-![ssh config](/image/week2/ssh.png)
+![ssh config](image/week2/ssh.png)
 *Figure 5: SSH service status and configuration verification*
 
 **System Resources:**
-![top command](/image/week2/top.png)
+![top command](image/week2/top.png)
 *Figure 6: Real-time system resource monitoring with `top`*
 
 **Network Interface:**
-![tulpn command](/image/week2/tulpn.png)
+![tulpn command](image/week2/tulpn.png)
 *Figure 7: Network listening ports using `netstat -tulpn` or `ss -tulpn`*
 
 **Firewall Status:**
-![ufw status](/image/week2/ufw.png)
+![ufw status](image/week2/ufw.png)
 *Figure 8: Firewall rules and status verification*
 
 **Memory Statistics:**
-![vmstat command](/week2/vmstat.png)
+![vmstat command](image/week2/vmstat.png)
 *Figure 9: Virtual memory statistics using `vmstat` for baseline measurements*
 
 **User Verification:**
-![grep command](/image/week2/grep.png)
+![grep command](image/week2/grep.png)
 *Figure 10: User and group verification using `grep` on system files*
 
 ### Testing Approach
@@ -198,6 +198,17 @@ Vulnerabilities in running network services could be exploited to compromise the
 
 ---
 
+## Testing Schedule
+
+| Week | Testing Focus | Key Activities |
+|------|--------------|----------------|
+| Week 3 | Application selection | Identify test applications, document expected profiles |
+| Week 4 | Initial security | Verify SSH, firewall, user configs |
+| Week 5 | Advanced security | Test MAC policies, fail2ban, monitoring scripts |
+| Week 6 | Performance evaluation | Execute full test suite, collect metrics |
+| Week 7 | Security audit | Lynis scanning, nmap assessment, final verification |
+
+---
 
 ## Reflections
 
@@ -221,6 +232,13 @@ Vulnerabilities in running network services could be exploited to compromise the
 - Performance testing methodology design
 - Trade-off analysis between security and performance
 
+---
+
+## Next Steps
+- Week 3: Select applications for performance testing
+- Begin researching specific security implementations
+- Review SSH hardening best practices
+- Familiarize with chosen MAC system (SELinux/AppArmor)
 
 ---
 
@@ -229,3 +247,4 @@ Vulnerabilities in running network services could be exploited to compromise the
 
 [2] "UFW - Uncomplicated Firewall," Ubuntu Wiki. [Online]. Available: https://wiki.ubuntu.com/UncomplicatedFirewall [Accessed: Dec. 11, 2025]
 
+*Add additional references as you conduct research*
