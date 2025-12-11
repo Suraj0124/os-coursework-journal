@@ -47,7 +47,7 @@ nethogs -t
 *Figure 3: Directory listing and file structure verification*
 
 **Server Status:**
-![server running](image/week2/server20%running.png)
+![server running](image/week2/sr.png)
 *Figure 4: Server operational status and running services*
 
 **SSH Configuration:**
@@ -59,7 +59,7 @@ nethogs -t
 *Figure 6: Real-time system resource monitoring with `top`*
 
 **Network Interface:**
-![tulpn command](image/week2/tulpn.png)
+![tulpn command](image/week2/-tulpn.png)
 *Figure 7: Network listening ports using `netstat -tulpn` or `ss -tulpn`*
 
 **Firewall Status:**
