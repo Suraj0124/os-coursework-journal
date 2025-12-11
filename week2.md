@@ -35,43 +35,43 @@ nethogs -t
 ### Command-Line Evidence
 
 **System Information:**
-![uname command](os-coursework-journal/image/week2/uname.png)
+![uname command](image/week2/uname.png)
 *Figure 1: System information using `uname -a` showing kernel version and architecture*
 
 **System Statistics:**
-![iostat command](os-coursework-journal/image/week2/iostat.png)
+![iostat command](image/week2/iostat.png)
 *Figure 2: I/O statistics with `iostat` for disk performance baseline*
 
 **Process Listing:**
-![ls command](os-coursework-journal/image/week2/ls.png)
+![ls command](image/week2/ls.png)
 *Figure 3: Directory listing and file structure verification*
 
 **Server Status:**
-![server running](os-coursework-journal/image/week2/server-running.png)
+![server running](image/week2/sr.png)
 *Figure 4: Server operational status and running services*
 
 **SSH Configuration:**
-![ssh config](os-coursework-journal/image/week2/ssh.png)
+![ssh config](image/week2/ssh.png)
 *Figure 5: SSH service status and configuration verification*
 
 **System Resources:**
-![top command](os-coursework-journal/image/week2/top.png)
+![top command](image/week2/top.png)
 *Figure 6: Real-time system resource monitoring with `top`*
 
 **Network Interface:**
-![tulpn command](os-coursework-journal/image/week2/tulpn.png)
+![tulpn command](image/week2/-tulpn.png)
 *Figure 7: Network listening ports using `netstat -tulpn` or `ss -tulpn`*
 
 **Firewall Status:**
-![ufw status](os-coursework-journal/image/week2/ufw.png)
+![ufw status](image/week2/ufw.png)
 *Figure 8: Firewall rules and status verification*
 
 **Memory Statistics:**
-![vmstat command](os-coursework-journal/image/week2/vmstat.png)
+![vmstat command](image/week2/vmstat.png)
 *Figure 9: Virtual memory statistics using `vmstat` for baseline measurements*
 
 **User Verification:**
-![grep command](os-coursework-journal/image/week2/grep.png)
+![grep command](image/week2/grep.png)
 *Figure 10: User and group verification using `grep` on system files*
 
 ### Testing Approach
@@ -199,6 +199,7 @@ Vulnerabilities in running network services could be exploited to compromise the
 ---
 
 
+
 ## Reflections
 
 ### Key Decisions
@@ -229,3 +230,4 @@ Vulnerabilities in running network services could be exploited to compromise the
 
 [2] "UFW - Uncomplicated Firewall," Ubuntu Wiki. [Online]. Available: https://wiki.ubuntu.com/UncomplicatedFirewall [Accessed: Dec. 11, 2025]
 
+*Add additional references as you conduct research*
