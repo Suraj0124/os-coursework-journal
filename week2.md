@@ -1,303 +1,231 @@
 # Week 2: Security Planning and Testing Methodology
 
 ## Overview
-This week focused on planning the security baseline and performance testing methodology before implementation begins in Week 4.
+This week focuses on designing a comprehensive security baseline and establishing a robust performance testing methodology for the Linux server deployment.
+
 ---
 
 ## 1. Performance Testing Plan
 
 ### Remote Monitoring Methodology
+**Approach:**
+- All performance monitoring will be conducted remotely via SSH from the workstation
+- Data collection will use standard Linux utilities accessible through command-line interface
+- Metrics will be captured at regular intervals to establish baseline and stress conditions
 
-#### Approach
-All performance monitoring will be conducted remotely from the workstation via SSH. This ensures:
-- No GUI overhead on the server
-- Professional remote administration practice
-- Realistic cloud infrastructure simulation
-
-#### Testing Phases
-1. **Baseline Testing** - Measure system performance at idle
-2. **Application Load Testing** - Run applications and measure resource consumption
-3. **Performance Analysis** - Identify bottlenecks using monitoring data
-4. **Optimization Testing** - Implement improvements and re-measure
-
-### Monitoring Tools and Commands
-
-| Tool | Purpose | Usage |
-|------|---------|-------|
-| `top` / `htop` | Real-time process monitoring | CPU, memory, process stats |
-| `vmstat` | Virtual memory statistics | Memory, swap, I/O |
-| `iostat` | Disk I/O performance | Read/write speeds |
-| `netstat` / `ss` | Network connections | Active connections, ports |
-| `sar` | System activity reporting | Historical performance data |
-| Custom scripts | Automated monitoring | Week 5 implementation |
-
-### Metrics to Collect
-
-For each application tested:
-- **CPU Usage**: Percentage utilization
-- **Memory Usage**: MB/GB used, percentage
-- **Disk I/O**: Reads/writes per second
-- **Network Performance**: Throughput (Mbps), latency (ms)
-- **Response Times**: Application-specific metrics
-- **System Load**: 1, 5, 15-minute averages
-
-### Data Collection Strategy
-
+**Tools and Commands:**
 ```bash
-# Remote monitoring approach (to be implemented Week 5-6)
-# From workstation, SSH into server and collect:
-ssh user@server 'top -bn1 | head -20'
-ssh user@server 'free -h'
-ssh user@server 'df -h'
-ssh user@server 'iostat -x 1 5'
+# CPU monitoring
+top -bn1 | grep "Cpu(s)"
+mpstat 1 5
+
+# Memory usage
+free -h
+vmstat 1 5
+
+# Disk I/O
+iostat -x 1 5
+df -h
+
+# Network monitoring
+iftop -t -s 5
+nethogs -t
 ```
+
+### Command-Line Evidence
+
+**System Information:**
+![uname command](os-coursework-journal/image/week2/uname.png)
+*Figure 1: System information using `uname -a` showing kernel version and architecture*
+
+**System Statistics:**
+![iostat command](os-coursework-journal/image/week2/iostat.png)
+*Figure 2: I/O statistics with `iostat` for disk performance baseline*
+
+**Process Listing:**
+![ls command](os-coursework-journal/image/week2/ls.png)
+*Figure 3: Directory listing and file structure verification*
+
+**Server Status:**
+![server running](os-coursework-journal/image/week2/server-running.png)
+*Figure 4: Server operational status and running services*
+
+**SSH Configuration:**
+![ssh config](os-coursework-journal/image/week2/ssh.png)
+*Figure 5: SSH service status and configuration verification*
+
+**System Resources:**
+![top command](os-coursework-journal/image/week2/top.png)
+*Figure 6: Real-time system resource monitoring with `top`*
+
+**Network Interface:**
+![tulpn command](os-coursework-journal/image/week2/tulpn.png)
+*Figure 7: Network listening ports using `netstat -tulpn` or `ss -tulpn`*
+
+**Firewall Status:**
+![ufw status](os-coursework-journal/image/week2/ufw.png)
+*Figure 8: Firewall rules and status verification*
+
+**Memory Statistics:**
+![vmstat command](os-coursework-journal/image/week2/vmstat.png)
+*Figure 9: Virtual memory statistics using `vmstat` for baseline measurements*
+
+**User Verification:**
+![grep command](os-coursework-journal/image/week2/grep.png)
+*Figure 10: User and group verification using `grep` on system files*
+
+### Testing Approach
+**Baseline Testing:**
+- Capture system metrics during idle state
+- Record for 5-minute intervals to establish normal operating parameters
+- Document baseline CPU, memory, disk, and network utilization
+
+**Load Testing:**
+- Apply controlled workloads using selected applications
+- Monitor resource consumption during peak usage
+- Compare against baseline measurements
+
+**Data Collection Strategy:**
+- Automated monitoring script (`monitor-server.sh`) to collect metrics
+- Data logged to CSV format for analysis
+- Screenshots captured for documentation
 
 ---
 
 ## 2. Security Configuration Checklist
 
-### SSH Hardening (Implementation: Week 4)
-- [ ] Generate SSH key pair on workstation
-- [ ] Copy public key to server
-- [ ] Configure key-based authentication
-- [ ] Disable password authentication (`PasswordAuthentication no`)
+### SSH Hardening
 - [ ] Disable root login (`PermitRootLogin no`)
-- [ ] Change default SSH port (optional security through obscurity)
-- [ ] Set SSH timeout values (`ClientAliveInterval`, `ClientAliveCountMax`)
+- [ ] Disable password authentication (`PasswordAuthentication no`)
+- [ ] Enable key-based authentication only
+- [ ] Change default SSH port (optional, consider trade-offs)
+- [ ] Configure SSH idle timeout (`ClientAliveInterval`, `ClientAliveCountMax`)
 - [ ] Restrict SSH access to specific users (`AllowUsers`)
+- [ ] Disable X11 forwarding if not needed (`X11Forwarding no`)
 
-**Configuration File**: `/etc/ssh/sshd_config`
-
----
-
-### Firewall Configuration (Implementation: Week 4)
+### Firewall Configuration
 - [ ] Install and enable UFW (Uncomplicated Firewall)
-- [ ] Set default deny incoming policy
-- [ ] Set default allow outgoing policy
+- [ ] Default deny all incoming traffic
 - [ ] Allow SSH from workstation IP only
-- [ ] Deny SSH from all other sources
-- [ ] Document complete firewall ruleset
-- [ ] Test connectivity from workstation
-- [ ] Test blocked access from other sources
+- [ ] Allow necessary service ports (document justification)
+- [ ] Log dropped packets for monitoring
+- [ ] Test firewall rules before disconnecting
 
-**Commands**:
-```bash
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-sudo ufw allow from WORKSTATION_IP to any port 22
-sudo ufw enable
-```
-
----
-
-### Mandatory Access Control (Implementation: Week 5)
+### Mandatory Access Control
 - [ ] Choose between SELinux or AppArmor
-- [ ] Enable MAC system
-- [ ] Configure profiles for critical services
-- [ ] Test enforcement mode
-- [ ] Document policy configurations
-- [ ] Monitor access control logs
+- [ ] Enable and configure chosen MAC system
+- [ ] Create/modify security policies for critical services
+- [ ] Document policy decisions and justifications
+- [ ] Test application functionality under MAC policies
 
-**Choice**: [SELinux / AppArmor] - **Justification**: [To be documented]
-
----
-
-### Automatic Security Updates (Implementation: Week 5)
-- [ ] Install unattended-upgrades package
-- [ ] Configure automatic security updates
-- [ ] Set update schedule
-- [ ] Configure email notifications (optional)
+### Automatic Updates
+- [ ] Configure unattended-upgrades package
+- [ ] Enable automatic security updates only
+- [ ] Schedule update checks (daily recommended)
+- [ ] Configure email notifications (if applicable)
 - [ ] Test update mechanism
-- [ ] Monitor update logs
 
-**Configuration File**: `/etc/apt/apt.conf.d/50unattended-upgrades`
-
----
-
-### User Privilege Management (Implementation: Week 4)
+### User Privilege Management
 - [ ] Create non-root administrative user
-- [ ] Configure sudo access
-- [ ] Disable direct root login
-- [ ] Implement principle of least privilege
-- [ ] Document user roles and permissions
-- [ ] Test sudo functionality
+- [ ] Configure sudo access with appropriate restrictions
+- [ ] Implement password policies (if passwords used for sudo)
+- [ ] Disable or remove unnecessary user accounts
+- [ ] Review group memberships
 
-**Users**:
-- Administrative user: [username]
-- Regular users: [if any]
-
----
-
-### Network Security (Implementation: Week 5-7)
-- [ ] Configure fail2ban for intrusion detection
-- [ ] Disable unused network services
-- [ ] Review listening ports
-- [ ] Implement port knocking (optional)
-- [ ] Configure TCP wrappers (optional)
-- [ ] Document all allowed services
+### Network Security
+- [ ] Disable IPv6 if not required
+- [ ] Configure TCP wrappers for additional access control
+- [ ] Implement fail2ban for intrusion prevention
+- [ ] Review and disable unnecessary network services
+- [ ] Configure network time synchronization (NTP)
 
 ---
 
 ## 3. Threat Model
 
-### Threat 1: Brute Force SSH Attacks
+### Threat 1: Unauthorized SSH Access
+**Description:**  
+Attackers attempt to gain unauthorized access to the server through SSH brute-force attacks or credential compromise.
 
-**Description**: Attackers attempt to gain access by systematically trying username/password combinations against the SSH service.
+**Risk Level:** High
 
-**Likelihood**: High (SSH is commonly targeted)  
-**Impact**: High (full system compromise if successful)
+**Mitigation Strategies:**
+- Implement key-based authentication and disable password login
+- Restrict SSH access to workstation IP address only via firewall rules
+- Deploy fail2ban to automatically block repeated failed login attempts
+- Use non-standard SSH port (trade-off: security through obscurity vs. convenience)
+- Implement strong passphrase for SSH private key
+- Regular monitoring of `/var/log/auth.log` for suspicious activity
 
-**Mitigation Strategies**:
-1. Implement key-based authentication (removes password attack surface)
-2. Disable password authentication completely
-3. Restrict SSH access to specific IP (workstation only)
-4. Deploy fail2ban to automatically block repeated failed attempts
-5. Consider changing default SSH port (security through obscurity)
-
-**Implementation Weeks**: 4, 5
+**Implementation Priority:** Phase 4
 
 ---
 
 ### Threat 2: Privilege Escalation
+**Description:**  
+Compromised non-privileged user account attempts to gain root access through system vulnerabilities or misconfiguration.
 
-**Description**: A compromised non-privileged user account exploits vulnerabilities to gain root/administrator privileges.
+**Risk Level:** Medium-High
 
-**Likelihood**: Medium (requires initial compromise)  
-**Impact**: Critical (complete system control)
+**Mitigation Strategies:**
+- Implement mandatory access control (SELinux/AppArmor) to restrict process capabilities
+- Configure sudo with least-privilege principle (specific commands only)
+- Enable automatic security updates to patch known vulnerabilities
+- Regular security audits using Lynis to identify misconfigurations
+- Disable unnecessary SUID/SGID binaries
+- Monitor sudo usage logs for anomalies
 
-**Mitigation Strategies**:
-1. Apply principle of least privilege for all users
-2. Configure sudo with specific command restrictions
-3. Keep system packages updated (automatic updates)
-4. Enable and configure mandatory access control (SELinux/AppArmor)
-5. Regular security audits with Lynis
-6. Monitor authentication logs for suspicious activity
-
-**Implementation Weeks**: 4, 5, 7
-
----
-
-### Threat 3: Unpatched Vulnerabilities
-
-**Description**: Outdated software packages contain known security vulnerabilities that attackers can exploit.
-
-**Likelihood**: Medium (depends on update frequency)  
-**Impact**: High (varies by vulnerability)
-
-**Mitigation Strategies**:
-1. Enable automatic security updates
-2. Configure unattended-upgrades for daily security patches
-3. Regular manual system updates (`sudo apt update && sudo apt upgrade`)
-4. Monitor security mailing lists for critical vulnerabilities
-5. Implement security scanning with Lynis (Week 7)
-6. Maintain minimal installed packages (reduce attack surface)
-
-**Implementation Weeks**: 5, ongoing
+**Implementation Priority:** Phase 5
 
 ---
 
-### Threat 4: Network-Based Attacks (Additional Threat)
+### Threat 3: Service Exploitation
+**Description:**  
+Vulnerabilities in running network services could be exploited to compromise the system or launch attacks.
 
-**Description**: Attacks originating from the network, including port scanning, service exploitation, and denial of service.
+**Risk Level:** Medium
 
-**Likelihood**: Medium (exposed network services)  
-**Impact**: Medium to High (service disruption or compromise)
+**Mitigation Strategies:**
+- Minimize attack surface by running only essential services
+- Keep all services updated through automatic security updates
+- Use firewall to restrict service access to necessary ports and IPs only
+- Implement SELinux/AppArmor profiles to contain service processes
+- Regular vulnerability scanning with nmap and Lynis
+- Monitor service logs for exploitation attempts
+- Document justification for each running service
 
-**Mitigation Strategies**:
-1. Firewall configuration with restrictive rules
-2. Disable unnecessary network services
-3. Regular port scanning audits (nmap)
-4. fail2ban for automated response to attacks
-5. Network monitoring for unusual traffic patterns
-
-**Implementation Weeks**: 4, 5, 7
-
----
-
-## 4. Current System Baseline (Optional)
-
-### Pre-Hardening Security State
-
-**Note**: These screenshots document the system state BEFORE security implementation begins in Week 4.
-
-#### System Information
-```bash
-# Command: uname -a
-[Screenshot showing system information]
-
-# Command: lsb_release -a
-[Screenshot showing Ubuntu version]
-```
-
-#### Current Firewall Status
-```bash
-# Command: sudo ufw status
-[Screenshot - likely showing "inactive" or default state]
-```
-
-#### SSH Configuration (Default)
-```bash
-# Command: cat /etc/ssh/sshd_config | grep -v "^#" | grep -v "^$"
-[Screenshot showing default SSH settings]
-```
-
-#### Running Services
-```bash
-# Command: sudo systemctl list-units --type=service --state=running
-[Screenshot showing active services]
-```
-
-#### Network Listening Ports
-```bash
-# Command: sudo netstat -tulpn | grep LISTEN
-# Or: sudo ss -tulpn | grep LISTEN
-[Screenshot showing open ports]
-```
+**Implementation Priority:** Phases 4-7
 
 ---
 
-## 5. Testing Methodology Summary
 
-### Week-by-Week Implementation Plan
+## Reflections
 
-| Week | Focus Area | Deliverables |
-|------|-----------|--------------|
-| 2 | Planning (current) | Testing plan, security checklist, threat model |
-| 3 | Application selection | Choose applications for performance testing |
-| 4 | Basic security | SSH hardening, firewall, user management |
-| 5 | Advanced security | MAC, fail2ban, monitoring scripts |
-| 6 | Performance testing | Execute tests, collect data, optimize |
-| 7 | Security audit | Lynis scan, nmap, final evaluation |
+### Key Decisions
+*Document your reasoning for specific security choices. For example:*
+- Why did you choose SELinux vs AppArmor?
+- What informed your firewall rule decisions?
+- How did you balance security with usability?
 
----
+### Anticipated Challenges
+*Consider potential issues:*
+- SSH key management and secure storage
+- Performance impact of security controls
+- Complexity of MAC policy configuration
+- Monitoring overhead on system resources
 
-## 6. Reflection
+### Learning Objectives
+*What skills am I developing this week?*
+- Security planning and threat modeling
+- Understanding defense-in-depth strategy
+- Performance testing methodology design
+- Trade-off analysis between security and performance
 
-### Learning Objectives for This Week
-- Understanding security planning before implementation
-- Identifying potential threats and mitigation strategies
-- Planning comprehensive performance testing methodology
-- Establishing baseline for future comparison
-
-### Challenges Anticipated
-1. **Balancing security and usability**: Ensuring hardened configuration doesn't impede legitimate administration
-2. **Performance overhead**: Understanding the cost of security controls
-3. **Remote monitoring**: Developing effective SSH-based monitoring approach
-
-### Next Steps (Week 3)
-- Select applications for performance testing
-- Research resource profiles for chosen applications
-- Plan installation methodology via SSH
 
 ---
 
 ## References
+[1] "SSH Security Best Practices," Ubuntu Documentation. [Online]. Available: https://ubuntu.com/server/docs/security-best-practices [Accessed: Dec. 11, 2025]
 
-[1] "SSH Hardening Guide," Ubuntu Documentation. [Online]. Available: https://help.ubuntu.com/community/SSH/OpenSSH/Configuring [Accessed: Date]
-
-[2] "UFW - Uncomplicated Firewall," Ubuntu. [Online]. Available: https://help.ubuntu.com/community/UFW [Accessed: Date]
-
-[3] "OWASP Top Ten," OWASP Foundation. [Online]. Available: https://owasp.org/www-project-top-ten/ [Accessed: Date]
-
-
+[2] "UFW - Uncomplicated Firewall," Ubuntu Wiki. [Online]. Available: https://wiki.ubuntu.com/UncomplicatedFirewall [Accessed: Dec. 11, 2025]
 
