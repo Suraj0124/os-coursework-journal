@@ -779,15 +779,7 @@ df -h
 4. What are the signs of an ongoing SSH attack in the logs?
 5. How do I balance security hardening with troubleshooting accessibility?
 
-### Next Steps for Week 3
 
-- [ ] Select applications representing different workload types (CPU, memory, I/O, network intensive)
-- [ ] Research installation methods for chosen applications
-- [ ] Document expected resource profiles for each application
-- [ ] Plan monitoring approach for each workload type
-- [ ] Prepare for security implementation in Week 4
-
----
 
 ## References
 
@@ -798,9 +790,4 @@ df -h
 [5] "UnattendedUpgrades," Debian Wiki, [Online]. Available: https://wiki.debian.org/UnattendedUpgrades  
 [6] "Linux System Monitoring Tools," Red Hat Documentation, [Online]. Available: https://access.redhat.com/documentation/
 
----
-
-**Last Updated:** [Insert Date]  
-**Status:** Week 2 Planning Complete - Ready for Week 3
-**Last Updated:** [Date]  
-**Status:** Week 2 Planning Complete
+-
