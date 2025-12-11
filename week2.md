@@ -2,8 +2,6 @@
 
 ## Overview
 This week focused on planning the security baseline and performance testing methodology before implementation begins in Week 4.
-
-
 ---
 
 ## 1. Performance Testing Plan
@@ -301,7 +299,5 @@ sudo ufw enable
 
 [3] "OWASP Top Ten," OWASP Foundation. [Online]. Available: https://owasp.org/www-project-top-ten/ [Accessed: Date]
 
----
 
-**Navigation**: [Home](index.md) | [← Week 1](week1.md) | [Week 3 →](week3.md)
--
+
