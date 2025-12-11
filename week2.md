@@ -198,17 +198,7 @@ Vulnerabilities in running network services could be exploited to compromise the
 
 ---
 
-## Testing Schedule
 
-| Week | Testing Focus | Key Activities |
-|------|--------------|----------------|
-| Week 3 | Application selection | Identify test applications, document expected profiles |
-| Week 4 | Initial security | Verify SSH, firewall, user configs |
-| Week 5 | Advanced security | Test MAC policies, fail2ban, monitoring scripts |
-| Week 6 | Performance evaluation | Execute full test suite, collect metrics |
-| Week 7 | Security audit | Lynis scanning, nmap assessment, final verification |
-
----
 
 ## Reflections
 
@@ -232,13 +222,6 @@ Vulnerabilities in running network services could be exploited to compromise the
 - Performance testing methodology design
 - Trade-off analysis between security and performance
 
----
-
-## Next Steps
-- Week 3: Select applications for performance testing
-- Begin researching specific security implementations
-- Review SSH hardening best practices
-- Familiarize with chosen MAC system (SELinux/AppArmor)
 
 ---
 
