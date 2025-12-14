@@ -1,21 +1,9 @@
 
 # Week 3: Application Selection for Performance Testing
 
-## Overview
-
-**Phase:** Application Selection for Performance Testing
-**Module:** CMPN202 – Operating Systems
-**Focus:** Selecting representative applications to evaluate OS performance under different workload types and planning how they will be monitored and analysed.
-
----
-
 ## Objectives for This Week
 
-* Identify applications that represent different workload categories
-* Justify application choices based on OS behaviour and resource usage
-* Document installation steps using SSH and CLI only
-* Predict expected resource utilisation patterns
-* Define a clear monitoring and measurement strategy
+This week focused on selecting applications that represent different workload categories for operating system performance evaluation. Each application was chosen based on how it stresses specific OS resources, such as CPU scheduling, memory management, disk I/O, and network throughput. All tools were installed on Ubuntu Server using SSH and command-line utilities only, ensuring a headless and resource-efficient environment. Expected resource utilisation patterns were identified in advance to provide a baseline for comparison during testing. A structured monitoring and measurement strategy was defined to observe system behaviour under both idle and workload conditions.
 
 ---
 
@@ -41,7 +29,6 @@ The following workload types are considered in this coursework:
 | Network-intensive  | iperf3                 | Network performance testing tool | Measures bandwidth, throughput, and latency over TCP/UDP connections                              |
 | Server application | nginx                  | Lightweight web server           | Represents real-world server workload handling concurrent client requests                         |
 
-*Table 1: Selected applications mapped to workload categories with justification.*
 
 ---
 
