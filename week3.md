@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This week's objective is to select and justify specific applications and tools for generating various types of system workloads for performance evaluation. For each selected tool, we will outline its key features and provide installation instructions.
+The task of this week is to identify and defend particular applications and tools in the creation of different types of system workloads to be used in the performance assessment. On every chosen tool, we will describe its main characteristics and give the installation guide.s.
 
 ---
 
@@ -97,11 +97,11 @@ The following matrix details the tools selected to generate specific workloads f
 
 | Workload Type | Selected Application | Alternatives Considered | Justification for Selection |
 | :--- | :--- | :--- | :--- |
-| **CPU-Intensive** | **Sysbench** | stress, stress-ng, openssl, prime95 | Chosen for its mathematical consistency (prime number calculation), providing a stable, repeatable processor load ideal for benchmarking. |
-| **RAM-Intensive** | **Stress-ng** | stress, memtester | Selected as an upgraded version of `stress`, allowing for aggressive cycle memory allocation testing and evaluation of swap performance. |
-| **I/O-Intensive** | **Fio** | dd, stress, stress-ng | Preferred for its high flexibility and ability to simulate specific database/file server patterns and bypass the OS cache to measure true hardware speed. |
-| **Network-Intensive** | **iPerf3** | ping, netcat, nload, hping3 | Best for testing pipe capacity, as it measures pure TCP/UDP throughput, jitter, and packet loss, independent of hard drive speeds. |
-| **Server-Based** | **Apache2** | nginx, lighttpd | Widely used web server that generates mixed workloads representing real-world server scenarios. |
+| **CPU-Intensive** | **Sysbench** | stress, stress-ng, openssl, prime95 | I selected it because of its deterministic CPU benchmarking based on prime number counting which provides consistent, repeatable, and comparable measurements of the processor performance. |
+| **RAM-Intensive** | **Stress-ng** | stress, memtester | SI was selected as a next-gen replacement to stress, which provides us with high-tech memory stressors, which assist us in pushing challenging allocation patterns, as well as digging deep into the behavior of memory and swap. |
+| **I/O-Intensive** | **Fio** | dd, stress, stress-ng |Preferred due to its high configurability, enabling realistic simulation of database and file server I/O workloads while bypassing OS cache to measure true storage performance. |
+| **Network-Intensive** | **iPerf3** | ping, netcat, nload, hping3 | This comes in extremely handy when benchmarking a network, as it measures TCP/UDP throughput, jitter, and loss of packets precisely and gives a solid idea of the network capacity without being influenced by disk performance. |
+| **Server-Based** | **Apache2** | nginx, lighttpd |Chosen due to its common usage and the tendency to produce heterogeneous and real-world web-server workloads, and thus determining its relevance in assessing overall server performance. |
 
 ---
 
@@ -178,4 +178,4 @@ To measure the performance impact of the selected applications, we will utilize 
 
 ## Reflection
 
-This phase improved my understanding of how different workloads impact specific system resources. Selecting appropriate tools allowed me to isolate CPU, memory, disk, and network behavior more effectively. These observations will be valuable in later phases when analyzing performance bottlenecks and optimizing system configurations.
+This stage refined my understanding of biting work loads to system resources. The ability to use the appropriate tools enabled me to identify CPU, memory, disk, and network hang-ups more precisely. The findings will prove to be of great help when I address performance bottlenecks and configurations later.
