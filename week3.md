@@ -1,165 +1,230 @@
+# Week 3: Performance Testing Application Selection
 
-# Week 3: Application Selection for Performance Testing
+## Introduction
 
-## Objectives for This Week
-
-This week focused on selecting applications that represent different workload categories for operating system performance evaluation. Each application was chosen based on how it stresses specific OS resources, such as CPU scheduling, memory management, disk I/O, and network throughput. All tools were installed on Ubuntu Server using SSH and command-line utilities only, ensuring a headless and resource-efficient environment. Expected resource utilisation patterns were identified in advance to provide a baseline for comparison during testing. A structured monitoring and measurement strategy was defined to observe system behaviour under both idle and workload conditions.
-
----
-
-## Selected Workload Categories
-
-The following workload types are considered in this coursework:
-
-* CPU-intensive
-* Memory (RAM)-intensive
-* Disk / I/O-intensive
-* Network-intensive
-* Server / service-based workload
-
----
+This week focuses on selecting and configuring specific applications to generate various workload types for performance evaluation on Ubuntu Server. Each application has been chosen based on its ability to generate consistent, measurable workloads that stress specific system resources. The selected tools will be installed via SSH and monitored using the strategy established in Week 2.
 
 ## Application Selection Matrix
 
-| Workload Type      | Application            | Description                      | Justification                                                                                     |
-| ------------------ | ---------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------- |
-| CPU-intensive      | stress-ng              | CPU stress testing tool          | Generates controlled CPU load to evaluate scheduling, load handling, and CPU saturation behaviour |
-| RAM-intensive      | stress-ng (vm workers) | Memory stress testing            | Allocates and stresses RAM to analyse memory management, swapping, and paging behaviour           |
-| I/O-intensive      | fio                    | Flexible I/O tester              | Simulates realistic disk read/write workloads to evaluate filesystem and disk I/O performance     |
-| Network-intensive  | iperf3                 | Network performance testing tool | Measures bandwidth, throughput, and latency over TCP/UDP connections                              |
-| Server application | nginx                  | Lightweight web server           | Represents real-world server workload handling concurrent client requests                         |
-
-
----
-
-## Installation Documentation (via SSH)
-
-![Figure 3.1 SSH Login](assets/week3/week3_ssh_login.png)
-
-**Figure 3.1:** Successful SSH connection from Ubuntu Desktop workstation to Ubuntu Server, demonstrating remote command-line administration.
-
-This screenshot confirms successful remote administration of the server via SSH.
+| Workload Type | Application | Justification |
+|---------------|-------------|---------------|
+| **CPU-Intensive** | Sysbench | Mathematical consistency via prime number calculation; repeatable benchmark |
+| **RAM-Intensive** | Stress-ng | Advanced memory allocation testing; evaluates swap performance |
+| **I/O-Intensive** | Fio | Flexible I/O patterns; bypasses OS cache for true hardware speed measurement |
+| **Network-Intensive** | iPerf3 | Pure TCP/UDP throughput testing; independent of disk performance |
+| **Server Application** | Apache2 | Industry-standard web server for concurrent connection testing |
 
 ---
 
-## Installed Applications
+## 1. CPU-Intensive Workload
 
-![Figure 3.2 Application Installations](assets/week3/week3_app_installations.png)
+### Application: Sysbench
 
-**Figure 3.2:** Installation of performance testing applications (`stress-ng`, `sysbench`, `fio`, `iperf3`, and `nginx`) on Ubuntu Server using APT via SSH.
+**Justification:** Sysbench generates mathematically consistent processor loads based on prime number calculations, providing stable and repeatable benchmarks ideal for CPU performance evaluation.
 
-These commands install tools representing different workload types using SSH on a headless server.
+### Installation
+```bash
+# Install sysbench
+sudo apt update
+sudo apt install sysbench -y
+
+# Verify installation
+sysbench --version
+```
+
+![Sysbench Installation](assets/images-3/sysbench-install.png)
+
+### Expected Resource Profile
+
+- **CPU Usage:** 100% utilization across all cores
+- **Load Average:** Equals vCPU count
+- **Memory/Disk:** Minimal usage
+- **Test Command:** `sysbench cpu --cpu-max-prime=20000 run`
+
+### Test Execution
+
+![Sysbench CPU Test](assets/images-3/sysbench-test.png)
+
+![CPU Monitoring](assets/images-3/sysbench-monitoring.png)
 
 ---
 
-## Application Verification
+## 2. RAM-Intensive Workload
 
-![Figure 3.3 Application Versions](assets/week3/week3_app_versions.png)
+### Application: Stress-ng
 
-**Figure 3.3:** Version verification confirming successful installation of all selected performance testing applications.
+**Justification:** Stress-ng is an advanced version of the original stress tool, allowing aggressive cycle memory allocation testing to evaluate both physical memory and swap performance effectively.
 
-Version checks confirm that all applications are installed and ready for testing.
+### Installation
+```bash
+# Install stress-ng
+sudo apt install stress-ng -y
+
+# Verify installation
+stress-ng --version
+```
+
+![Stress-ng Installation](assets/images-3/stress-ng-install.png)
+
+### Expected Resource Profile
+
+- **RAM Usage:** Spikes to physical memory limit
+- **Swap Activity:** Heavy disk I/O when RAM exhausted
+- **CPU Usage:** Increased due to kswapd process
+- **Test Command:** `stress-ng --vm $(nproc) --vm-bytes 90% --timeout 20s`
+
+### Test Execution
+
+![Stress-ng RAM Test](assets/images-3/stress-ng-test.png)
+
+![RAM Monitoring](assets/images-3/ram-monitoring.png)
+
+---
+
+## 3. I/O-Intensive Workload
+
+### Application: Fio (Flexible I/O Tester)
+
+**Justification:** Fio offers high flexibility and configurability to simulate specific I/O patterns found in database or file server environments. It can bypass the OS cache to measure true hardware speed.
+
+### Installation
+```bash
+# Install fio
+sudo apt install fio -y
+
+# Verify installation
+fio --version
+```
+
+![Fio Installation](assets/images-3/fio-install.png)
+
+### Expected Resource Profile
+
+- **Disk I/O:** Read/Write speeds reach hardware limits
+- **CPU Usage:** High iowait percentage
+- **Memory:** Moderate usage for buffers
+- **Test Command:** `fio --name=test --rw=randwrite --bs=4k --size=1G --numjobs=4 --runtime=30 --group_reporting`
+
+### Test Execution
+
+![Fio Disk Test](assets/images-3/fio-test.png)
+
+![Disk I/O Monitoring](assets/images-3/disk-monitoring.png)
+
+---
+
+## 4. Network-Intensive Workload
+
+### Application: iPerf3
+
+**Justification:** iPerf3 generates pure TCP/UDP traffic between client and server to accurately measure maximum throughput, jitter, and packet loss. It is completely independent of hard drive speed, focusing solely on network capacity.
+
+### Installation
+```bash
+# Install iperf3 (on both server and desktop)
+sudo apt install iperf3 -y
+
+# Verify installation
+iperf3 --version
+
+# Configure firewall
+sudo ufw allow 5201/tcp
+```
+
+![iPerf3 Installation](assets/images-3/iperf3-install.png)
+
+### Expected Resource Profile
+
+- **Network Throughput:** Plateaus at NIC/bandwidth limit
+- **CPU/RAM Usage:** Low
+- **Server Command:** `iperf3 -s`
+- **Client Command:** `iperf3 -c <server_ip>`
+
+### Test Execution
+
+**Server Side (listening):**
+
+![iPerf3 Server](assets/images-3/iperf-server.png)
+
+**Client Side (testing):**
+
+![iPerf3 Client](assets/images-3/iperf-client.png)
+
+**Network Monitoring:**
+
+![Network Monitoring](assets/images-3/network-monitoring.png)
+
+---
+
+## 5. Server Application Workload
+
+### Application: Apache2 Web Server
+
+**Justification:** Apache2 is an industry-standard web server that allows testing of concurrent connection handling, request processing, and overall server performance under realistic workloads.
+
+### Installation
+```bash
+# Install Apache2
+sudo apt install apache2 -y
+
+# Verify installation
+apache2 -v
+
+# Check service status
+sudo systemctl status apache2
+
+# Install Apache Benchmark tool (for testing)
+sudo apt install apache2-utils -y
+```
+
+![Apache2 Installation](assets/images-3/apache-install.png)
+
+### Expected Resource Profile
+
+- **CPU/RAM Usage:** Scales with concurrent connections
+- **Network Throughput:** Increases under load
+- **Disk I/O:** Moderate (serving files)
+- **Test Command:** `ab -n 10000 -c 100 http://<server_ip>/`
+
+### Test Execution
+
+![Apache Benchmark Test](assets/images-3/apache-test.png)
+
+![Server Monitoring](assets/images-3/server-monitoring.png)
 
 ---
 
 ## Monitoring Strategy
 
-### Baseline Measurement
+### Tools Used
+- nmon (comprehensive resource monitoring)
+- htop (process monitoring)
+- iotop (disk I/O monitoring)
+- iftop (network monitoring)
 
-![Figure 3.4 Baseline System Usage](assets/week3/week3_baseline_top.png)
+### Monitoring Approach
 
-**Figure 3.4:** Baseline system resource usage on Ubuntu Server before executing any performance workloads.
+1. **Baseline Measurement:** Capture idle resource state before test execution
+2. **Real-time Monitoring:** Run monitoring tools in separate SSH session during workload generation
+3. **Peak Analysis:** Document maximum resource usage during tests
+4. **Metric Correlation:** Cross-reference monitoring data with application-specific metrics
 
-This baseline provides a reference point for comparison during workload execution.
+### Key Metrics by Workload
 
-### CPU Workload Observation
+| Workload | Primary Metrics | Secondary Metrics |
+|----------|----------------|-------------------|
+| CPU | Utilization %, Load Average | User/System time, Context switches |
+| RAM | Used/Free memory, Swap usage | Page faults, kswapd activity |
+| Disk I/O | Read/Write speed (MB/s), IOPS | iowait %, Queue depth |
+| Network | Throughput (Mbps), Latency | Packet loss, Jitter |
+| Server | Requests/sec, Response time | Failed requests, Concurrent connections |
 
-![Figure 3.5 stress-ng CPU Load](assets/week3/week3_stressng_cpu.png)
-
-**Figure 3.5:** CPU utilisation during `stress-ng` execution, demonstrating processor saturation under a controlled workload.
-
-This demonstrates CPU saturation during a controlled workload.
-
----
-
-## Server Application Evidence
-
-![Figure 3.6 nginx Service Status](assets/week3/week3_nginx_status.png)
-
-**Figure 3.6:** nginx web server running successfully as a representative server-based workload.
-
-nginx is used as a representative server-based workload.
-
----
-
-## Expected Resource Profiles
-
-This section documents the anticipated system behaviour before testing.
-
-| Application     | CPU Usage    | Memory Usage | Disk I/O      | Network Usage | Notes                      |   |
-| --------------- | ------------ | ------------ | ------------- | ------------- | -------------------------- | - |
-| stress-ng (CPU) | Very High    | Low          | Minimal       | None          | Saturates CPU cores        |   |
-| stress-ng (RAM) | Moderate     | Very High    | Possible swap | None          | Tests memory pressure      |   |
-| fio             | Low–Moderate | Low          | Very High     | None          | Disk read/write focus      |   |
-| iperf3          | Moderate     | Low          | Minimal       | Very High     | Network throughput testing |   |
-| nginx           | Low–Moderate | Low–Moderate | Low           | Moderate–High | Simulates server workload  |   |
-|                 |              |              |               |               |                            |   |
-
-*Predictions are based on documentation, prior knowledge, and workload characteristics.*
+![Monitoring Overview](assets/images-3/monitoring-overview.png)
 
 ---
 
-## Monitoring Strategy
+## Summary
 
-The following tools and metrics will be used to monitor system performance:
-
-### Monitoring Tools
-
-* `top` / `htop` – CPU and memory usage
-* `free -h` – Memory statistics
-* `iostat` – Disk I/O performance
-* `vmstat` – System load and memory
-* `iftop` / `ss` – Network activity
-* `uptime` – Load averages
-
-### Measurement Approach
-
-* Baseline system measurements taken before application execution
-* Measurements recorded during application execution
-* Consistent sampling intervals used for fair comparison
-
----
-
-## Evidence Collected
-
-* SSH terminal screenshots showing installation commands
-* CLI outputs demonstrating installed applications
-* Initial monitoring screenshots (idle vs active states)
-
----
-
-## Reflection (Week 3)
-
-This week focused on understanding how different workload types stress various operating system components. Selecting appropriate applications highlighted the importance of matching workloads to measurable OS behaviours. The planning carried out this week forms the foundation for performance testing and optimisation in later phases.
-
----
-
-## Next Week Preview (Week 4)
-
-* Implement SSH key-based authentication
-* Configure firewall rules
-* Create non-root administrative user
-* Begin secure remote administration
-
-## Image Captions (Concise)
-
-* **Figure W3-1:** Sysbench version output confirming successful installation.
-* **Figure W3-2:** stress-ng version output confirming successful installation.
-* **Figure W3-3:** fio version output confirming successful installation.
-* **Figure W3-4:** iperf3 version output confirming successful installation.
-* **Figure W3-5:** Sysbench CPU test command execution and output.
-* **Figure W3-6:** stress-ng memory workload execution and output.
-* **Figure W3-7:** fio disk I/O workload evidence during execution.
-* **Figure W3-8:** iperf3 server listening state on Ubuntu Server.
+All selected applications have been installed and configured for SSH-based performance testing. Each tool targets specific system resources with predictable workload patterns, enabling accurate performance evaluation and comparison between Ubuntu Server and Desktop environments.
 * **Figure W3-9:** iperf3 client-side network throughput test.
 * **Figure W3-10:** nmon network monitoring during iperf3 testing.
