@@ -162,11 +162,11 @@ CPU and RAM usage are expected to remain low. The primary metric will be network
 
 **Server Side**
 
-![server side listening](image/week3/iperf3servercde.png)
+![server side listening](image/week3/iperf3servercode.png)
 
 **Client Side**
 
-![client side testing](image/week3/iperf3clientremode.png)
+![client side testing](image/week3/iperf3clinentrcode.png)
 
 ---
 
