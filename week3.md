@@ -52,20 +52,6 @@ Alternatives for I/O testing include `stress`, `stress-ng`, `dd`, and `fio`.
 
 **Fio (Flexible I/O Tester)** was selected due to its high flexibility and configurability. It is capable of simulating specific I/O patterns, such as those found in database or file server environments, and can bypass the operating system's cache to measure the true speed of the underlying hardware.
 
-#### Installation
-
-This tool can be installed using the command:
-
-`sudo apt install fio -y`
-
-Verification:
-
-`fio --version`
-
-![fio version](image/week3/fioversion.png)
-
----
-
 ### Network-Intensive Workload
 
 **iPerf3** was chosen over other alternatives such as `ping`, `mtr`, `netperf`, `nload`, `ethtool`, `netcat`, `hping3`, `pingpong`, and `bmon`.
@@ -76,19 +62,6 @@ The justification for selecting iPerf3 is based on the following features:
 2. It is completely independent of hard drive speed, focusing solely on network capacity.
 3. It is the optimal tool for testing network pipe capacity.
 
-#### Installation
-
-It can be installed with:
-
-`sudo apt install iperf3 -y`
-
-Verification:
-
-`iperf3 --version`
-
-![iperf3 version](image/week3/iperf3version.png)
-
----
 
 ### Server-Based Workload
 
@@ -98,13 +71,25 @@ Verification:
 
 Apache2 can be installed using:
 
-`sudo apt install apache2 -y`
+`sudo apt install fio iperf3 apache2 -y `
 
 ![apache2 installation](image/week3/fioiperf3apache2-yinstall.png)
 
 ![apache2 status](image/week3/apache2.png)
 
+Verification:
+
+`iperf3 --version`
+
+![iperf3 version](image/week3/iperf3version.png)
+
 ---
+
+Verification:
+
+`iperf3 --version`
+
+![iperf3 version](image/week3/iperf3version.png)
 
 ## Application Selection Matrix
 
