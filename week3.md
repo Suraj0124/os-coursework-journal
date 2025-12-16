@@ -160,6 +160,3 @@ System performance was monitored using tools introduced in Week 2, including `to
 
 ## Reflection
 This phase improved my understanding of how different workloads impact specific system resources. Selecting appropriate tools allowed me to isolate CPU, memory, disk, and network behavior more effectively. These observations will be valuable in later phases when analyzing performance bottlenecks and optimizing system configurations.
-
-* **Figure W3-9:** iperf3 client-side network throughput test.
-* **Figure W3-10:** nmon network monitoring during iperf3 testing.
