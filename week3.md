@@ -20,9 +20,9 @@ This tool can be installed using `sudo apt install sysbench -y`.
 
 Verification for installation can be done using `sysbench --version`.
 
-![sysbench installation](assets/images-3/sysbenchinstall.png)
+![sysbench installation](image/week3/sysbenchinstall.png)
 
-![sysbench version](assets/images-3/sysbenchversion.png)
+![sysbench version](image/week3/sysbenchversion.png)
 
 ---
 
@@ -40,9 +40,9 @@ Installation can be done by using the command:
 
 Verification: `stress-ng --version`
 
-![stress-ng installation](assets/images-3/streesnginstall.png)
+![stress-ng installation](image/week3/streesnginstall.png)
 
-![stress-ng version](assets/images-3/stresngversion.png)
+![stress-ng version](image/week3/stresngversion.png)
 
 ---
 
@@ -62,7 +62,7 @@ Verification:
 
 `fio --version`
 
-![fio version](assets/images-3/fioversion.png)
+![fio version](image/week3/fioversion.png)
 
 ---
 
@@ -86,7 +86,7 @@ Verification:
 
 `iperf3 --version`
 
-![iperf3 version](assets/images-3/iperf3version.png)
+![iperf3 version](image/week3/iperf3version.png)
 
 ---
 
@@ -100,9 +100,9 @@ Apache2 can be installed using:
 
 `sudo apt install apache2 -y`
 
-![apache2 installation](assets/images-3/fioiperf3apache2-yinstall.png)
+![apache2 installation](image/week3/fioiperf3apache2-yinstall.png)
 
-![apache2 status](assets/images-3/apache2.png)
+![apache2 status](image/week3/apache2.png)
 
 ---
 
@@ -132,9 +132,9 @@ We anticipate a resource profile showing **100% utilization** of all assigned co
 
 Command given: `sysbench cpu --cpu-max-prime=20000 run`
 
-![sysbench execution](assets/images-3/syscode.png)
+![sysbench execution](image/week3/syscode.png)
 
-![sysbench cpu test](assets/images-3/sysbenchinstall.png)
+![sysbench cpu test](image/week3/sysbenchinstall.png)
 
 ---
 
@@ -146,9 +146,9 @@ We expect RAM usage to spike rapidly until the physical memory limit is reached.
 
 Command given: `stress-ng --vm $(nproc) --vm-bytes 90% --timeout 20s`
 
-![stress-ng execution](assets/images-3/stressngcode.png)
+![stress-ng execution](image/week3/stressngcode.png)
 
-![stress-ng output](assets/images-3/stresngversion.png)
+![stress-ng output](image/week3/stresngversion.png)
 
 ---
 
@@ -160,7 +160,7 @@ The Disk Read/Write speeds are expected to reach the physical or throttled limit
 
 Example command: `fio --name=randwrite --rw=randwrite --bs=4k --size=1G --runtime=30 --group_reporting`
 
-![fio execution](assets/images-3/fiocode.png)
+![fio execution](image/week3/fiocode.png)
 
 ---
 
@@ -177,11 +177,11 @@ CPU and RAM usage are expected to remain low. The primary metric will be network
 
 **Server Side**
 
-![server side listening](assets/images-3/iperf3servercde.png)
+![server side listening](image/week3/iperf3servercde.png)
 
 **Client Side**
 
-![client side testing](assets/images-3/iperf3clientremode.png)
+![client side testing](image/week3/iperf3clientremode.png)
 
 ---
 
