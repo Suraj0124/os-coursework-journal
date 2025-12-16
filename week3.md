@@ -22,7 +22,7 @@ Verification for installation can be done using `sysbench --version`.
 
 ![sysbench installation](image/week3/sysbenchinstall.png)
 
-![sysbench version](image/week3/sysbenchversion.png)
+![sysbench version](image/week3/sysbencversion.png)
 
 ---
 
