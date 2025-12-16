@@ -172,7 +172,7 @@ CPU and RAM usage are expected to remain low. The primary metric will be network
 
 ## Monitoring Strategy 
 
-To measure the performance impact of the selected applications, we will utilize the monitoring tools and strategies established in Week 2, including `top`, `htop`, `vmstat`, `iostat`, and `nmon`. Each workload was executed independently while observing real-time resource usage to identify bottlenecks and system behavior under stress.
+To measure the performance impact of the selected applications, we will utilize the monitoring tools and strategies established in Week 2, including `top`, `htop`, `vmstat`, `iostat`. Each workload was executed independently while observing real-time resource usage to identify bottlenecks and system behavior under stress.
 
 ---
 
