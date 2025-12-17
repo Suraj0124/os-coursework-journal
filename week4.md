@@ -29,8 +29,6 @@ bash
 ssh-keygen -t ed25519 -C "admin@workstation"
 ssh-copy-id adminuser@<server_ip>
 
-sudo nano /etc/ssh/sshd_config
-sudo systemctl restart ssh
 ```
 ### Screenshot Evidence
 
