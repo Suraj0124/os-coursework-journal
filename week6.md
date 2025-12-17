@@ -122,15 +122,15 @@ Both optimisations resulted in improved stability and predictable performance.
 ## 8. Testing Evidence (Screenshots)
 
 
-![CPU Idle State](image/week6/CPU idle state.png)
-![CPU Stress 100%](image/week6/cpu 100.png)
-![Memory Availability](image/week6/Memory availability.png)
-![Memory Usage Spike](image/week6/memoryusgs spike.png)
-![Disk Idle Metrics](image/week6/Disk idle metrics.png)
-![Disk Saturation Evidence](image/week6/Disk saturation evidence.png)
-![Write Speed Output](image/week6/write speed output.png)
-![Network Statistics](image/week6/Network statistics.png)
-![Ping RTT Statistics](image/week6/Ping RTT statistics.png)
+![CPU Idle State](image/week6/CPUidlestate.png)
+![CPU Stress 100%](image/week6/cpu100.png)
+![Memory Availability](image/week6/Memoryavailability.png)
+![Memory Usage Spike](image/week6/memoryusgsspike.png)
+![Disk Idle Metrics](image/week6/Diskidlemetrics.png)
+![Disk Saturation Evidence](image/week6/Disksaturationevidence.png)
+![Write Speed Output](image/week6/writespeedoutput.png)
+![Network Statistics](image/week6/Networkstatistics.png)
+![Ping RTT Statistics](image/week6/PingRTTstatistics.png)
 ![Apache Concurrency Test](image/week6/appacxhe.png)
 
 ## 9.Conclusion
