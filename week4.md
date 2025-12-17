@@ -24,7 +24,14 @@ Configure SSH to use key-based authentication and disable password-based login.
 * Updated SSH daemon configuration
 * Restarted SSH service
 
+bash
+```# Commands executed from the workstation
+ssh-keygen -t ed25519 -C "admin@workstation"
+ssh-copy-id adminuser@<server_ip>
 
+sudo nano /etc/ssh/sshd_config
+sudo systemctl restart ssh
+```
 ### Screenshot Evidence
 
 **SSH Key Generation:**
