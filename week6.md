@@ -121,7 +121,7 @@ Both optimisations resulted in improved stability and predictable performance.
 
 ## 8. Testing Evidence (Screenshots)
 
-```md
+
 ![CPU Idle State](image/week6/CPU idle state.png)
 ![CPU Stress 100%](image/week6/cpu 100.png)
 ![Memory Availability](image/week6/Memory availability.png)
@@ -132,9 +132,8 @@ Both optimisations resulted in improved stability and predictable performance.
 ![Network Statistics](image/week6/Network statistics.png)
 ![Ping RTT Statistics](image/week6/Ping RTT statistics.png)
 ![Apache Concurrency Test](image/week6/appacxhe.png)
-```
+
 ## 9.Conclusion
 
 This evaluation demonstrated that the system performs efficiently under CPU, memory, and network stress. Disk I/O emerged as the primary bottleneck during write-heavy operations. Implemented optimisations improved stability and responsiveness, confirming the effectiveness of targeted tuning.
-- [Week 7 →](week7.md)
-- [Home](index.md)rity.
+
