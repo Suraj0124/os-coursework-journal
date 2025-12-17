@@ -221,9 +221,11 @@ whoami
 
 ---
 ## Reflection
-This phase represented an important transition from planning to the execution of the security measures. Operation in the SSH through the local console without human intervention required very cautious treatment throughout, since wrong setup could have eliminated all entry to the server.
-The process of implementation has once again reaffirmed many learnings. Firstly, the concept of least privilege was highly relevant because, by creating an administrative user with the help of useradd, I have made the management process more secure than it could have been with root privilege. Secondly, the security layers like SSH keys, firewall restrictions, and user privileges added an element where the more the security layers, the more the attack surface is reduced.
-Most importantly, this experience taught me the significance of prudent and validated configurations in the context of securing systems when working with *nix environments. Additionally, it taught me the importance of balancing the need for security with the ease of accessibility when implementing security measures, as each of the steps I was required to complete was validated and tested for functionality before moving ahead with another step.
+This stage marked the beginning of a critical shift from planning to the application of security concepts on the implementation stage. Operation on SSH alone without reliance on the local console meant doing things carefully to avoid loss of access to the servers.
+
+The process of implementing helped to derive several key lessons. First, it was found that implementing the Principle of Least Privilege is a highly essential step, and by creating a separate management account instead of using root privileges, a secure management system was established. Next, by using a combination of SSH keys, firewalls, and limiting privileges to users, a layer of defense-in-depth was established.
+
+Notably, this practical experience has reinforced the value of systematic and proven configuration changes in the process of securing live systems. Each change has required testing and validation before progressing, demonstrating how security needs may be balanced against the need for functionality and accessibility. The completion of these exercises has encouraged growing confidence in the implementation and management of secure Linux server infrastructure from a distant location.
 
 
 ## Conclusion
