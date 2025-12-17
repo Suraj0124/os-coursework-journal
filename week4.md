@@ -58,15 +58,15 @@ PermitRootLogin no
 
 **SSH Key Generation:**
 
-![SSH Key Generation](ssh-key.png)
+![SSH Key Generation](image/week4/ssh-key.png)
 
 **SSH Key Copy:**
 
-![SSH Key Copy to Server](ssh-key-copy-id.png)
+![SSH Key Copy to Server](image/week4/ssh-key-copy-id.png)
 
 **SSH Key-Based Authentication:**
 
-![SSH Key-Based Authentication](ssh-key-auth.png)
+![SSH Key-Based Authentication](image/week4/ssh-key-auth.png)
 
 ---
 
@@ -109,7 +109,7 @@ Default: deny (incoming), allow (outgoing), disabled (routed)
 
 ### Screenshot Evidence
 
-![Firewall Rules Configuration](firewall-rules.png)
+![Firewall Rules Configuration](image/week4/firewall-rules.png)
 
 ---
 
@@ -140,7 +140,7 @@ sudo passwd -l root
 
 ### Screenshot Evidence
 
-![User Privileges Configuration](user-privileges.png)
+![User Privileges Configuration](image/week4/user-privileges.png)
 
 ---
 
@@ -157,7 +157,7 @@ Demonstrate successful remote SSH access from the workstation.
 
 ### Screenshot Evidence
 
-![SSH Access from Workstation](ssh-access.png)
+![SSH Access from Workstation](image/week4/ssh-access.png)
 
 ---
 
@@ -229,5 +229,7 @@ The implementation demonstrated the practical application of security principles
 - **Principle of Least Privilege**: Non-root administrative access with sudo
 - **Secure Remote Access**: Key-based authentication with restricted IP access
 - **Network Segmentation**: Firewall rules limiting exposure to authorized sources only
+
+These foundational controls significantly reduced the server's attack surface and established a secure baseline for future system operations.
 
 These foundational controls significantly reduced the server's attack surface and established a secure baseline for future system operations.
