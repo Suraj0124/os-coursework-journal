@@ -122,15 +122,34 @@ Both optimisations resulted in improved stability and predictable performance.
 ## 8. Testing Evidence (Screenshots)
 
 
+**Figure 1:** CPU Idle State – system baseline showing 100% idle CPU  
 ![CPU Idle State](image/week6/CPUidlestate.png)
+
+**Figure 2:** CPU Stress Test – CPU utilisation reaching 100% under load  
 ![CPU Stress 100%](image/week6/cpu100.png)
+
+**Figure 3:** Memory Availability – baseline memory usage with no swap usage  
 ![Memory Availability](image/week6/Memoryavailability.png)
+
+**Figure 4:** Memory Stress Test – memory usage spike during stress testing  
 ![Memory Usage Spike](image/week6/memoryusgsspike.png)
+
+**Figure 5:** Disk Idle Metrics – disk subsystem in idle state  
 ![Disk Idle Metrics](image/week6/Diskidlemetrics.png)
+
+**Figure 6:** Disk Saturation Evidence – near 100% disk utilisation during write test  
 ![Disk Saturation Evidence](image/week6/Disksaturationevidence.png)
+
+**Figure 7:** Disk Write Speed Output – direct I/O write performance results  
 ![Write Speed Output](image/week6/writespeedoutput.png)
+
+**Figure 8:** Network Interface Statistics – network status and queuing discipline  
 ![Network Statistics](image/week6/Networkstatistics.png)
+
+**Figure 9:** Network Latency Results – ICMP RTT statistics from ping test  
 ![Ping RTT Statistics](image/week6/PingRTTstatistics.png)
+
+**Figure 10:** Apache Concurrency Test – Apache Bench results under high load  
 ![Apache Concurrency Test](image/week6/appacxhe.png)
 
 ## 9.Conclusion
