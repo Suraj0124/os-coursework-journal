@@ -172,11 +172,11 @@ Demonstrate successful remote SSH access from the workstation.
 
 #### Before Configuration
 
-![Configuration Before Changes](before.png)
+![Configuration Before Changes](image/week4/before.png)
 
 #### After Configuration
 
-![Configuration After Changes](after.png)
+![Configuration After Changes](image/week4/after.png)
 
 ---
 
@@ -195,7 +195,7 @@ Demonstrate successful remote SSH access from the workstation.
 
 ### Screenshot Evidence
 
-![Firewall Rules Status](firewall-rules.png)
+![Firewall Rules Status](image/week4/firewall-rules.png)
 
 ---
 
@@ -216,7 +216,7 @@ whoami
 
 ### Screenshot Evidence
 
-![Remote Administration Commands](remote-admin.png)
+![Remote Administration Commands](image/week4/remote-admin.png)
 
 ---
 
