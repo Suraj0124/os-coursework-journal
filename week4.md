@@ -1,12 +1,13 @@
 # Phase 4: Initial System Configuration & Security Implementation (Week 4)
 
-## Reflective Overview
+##  Overview
+Week 4 covered the integration of basic security measures within the Ubuntu Server setup. The two main goals were securing remote connections using SSH hardening, securing network access using the firewall, and properly dealing with user privileges. Every administrative activity was accomplished through a remote SSH connection, just like a practical scenario of server management.
+The key accomplishments were:
+* Configuring SSH with key-based authentication and disabling password login
+* Implementing UFW firewall rules to restrict SSH access to authorized workstations only
+* Creating and configuring a non-root administrative user with sudo privileges
+* Successfully demonstrating remote system administration capabilities
 
-Week 4 marked a significant transition from planning to hands-on implementation of security controls on the Ubuntu Server. During this phase, I focused on applying the core security principles identified earlier in the project, particularly around securing remote access, reducing unnecessary network exposure, and enforcing the principle of least privilege.
-
-All tasks were deliberately carried out remotely via SSH, without relying on local console access. This constraint closely mirrored real-world server administration scenarios, where administrators are expected to manage systems securely over the network. Working exclusively through SSH required careful planning and validation at each step, as misconfiguration could have resulted in loss of access.
-
-Through this process, I gained practical experience in hardening SSH access using key-based authentication, implementing restrictive firewall rules, and managing user privileges effectively. Overall, this phase reinforced the importance of cautious, methodical configuration when securing production-like systems and highlighted how foundational security measures significantly reduce the server's attack surface.
 
 ---
 
@@ -23,50 +24,25 @@ Configure SSH to use key-based authentication and disable password-based login.
 * Updated SSH daemon configuration
 * Restarted SSH service
 
-### Commands Used
-
-```bash
-# Commands executed from the workstation
+bash
+```# Commands executed from the workstation
 ssh-keygen -t ed25519 -C "admin@workstation"
 ssh-copy-id adminuser@<server_ip>
 
-sudo nano /etc/ssh/sshd_config
-sudo systemctl restart ssh
 ```
-
-### Configuration File Changes
-
-**File:** `/etc/ssh/sshd_config`
-
-#### Before Configuration
-
-```text
-# Default SSH configuration (excerpt)
-#PasswordAuthentication yes
-#PermitRootLogin prohibit-password
-```
-
-#### After Configuration
-
-```text
-PasswordAuthentication no
-PubkeyAuthentication yes
-PermitRootLogin no
-```
-
 ### Screenshot Evidence
 
 **SSH Key Generation:**
 
-![SSH Key Generation](ssh-key.png)
+![SSH Key Generation](image/week4/ssh-key.png)
 
 **SSH Key Copy:**
 
-![SSH Key Copy to Server](ssh-key-copy-id.png)
+![SSH Key Copy to Server](image/week4/ssh-key-copy-id.png)
 
 **SSH Key-Based Authentication:**
 
-![SSH Key-Based Authentication](ssh-key-auth.png)
+![SSH Key-Based Authentication](image/week4/ssh-key-auth.png)
 
 ---
 
@@ -109,7 +85,7 @@ Default: deny (incoming), allow (outgoing), disabled (routed)
 
 ### Screenshot Evidence
 
-![Firewall Rules Configuration](firewall-rules.png)
+![Firewall Rules Configuration](image/week4/firewall-rules.png)
 
 ---
 
@@ -140,7 +116,7 @@ sudo passwd -l root
 
 ### Screenshot Evidence
 
-![User Privileges Configuration](user-privileges.png)
+![User Privileges Configuration](image/week4/user-privileges.png)
 
 ---
 
@@ -157,7 +133,7 @@ Demonstrate successful remote SSH access from the workstation.
 
 ### Screenshot Evidence
 
-![SSH Access from Workstation](ssh-access.png)
+![SSH Access from Workstation](image/week4/ssh-access.png)
 
 ---
 
@@ -172,11 +148,11 @@ Demonstrate successful remote SSH access from the workstation.
 
 #### Before Configuration
 
-![Configuration Before Changes](before.png)
+![Configuration Before Changes](image/week4/before.png)
 
 #### After Configuration
 
-![Configuration After Changes](after.png)
+![Configuration After Changes](image/week4/after.png)
 
 ---
 
@@ -195,7 +171,7 @@ Demonstrate successful remote SSH access from the workstation.
 
 ### Screenshot Evidence
 
-![Firewall Rules Status](firewall-rules.png)
+![Firewall Rules Status](image/week4/firewall-rules.png)
 
 ---
 
@@ -216,9 +192,16 @@ whoami
 
 ### Screenshot Evidence
 
-![Remote Administration Commands](remote-admin.png)
+![Remote Administration Commands](image/week4/remote-admin.png)
 
 ---
+## Reflection
+This stage marked the beginning of a critical shift from planning to the application of security concepts on the implementation stage. Operation on SSH alone without reliance on the local console meant doing things carefully to avoid loss of access to the servers.
+
+The process of implementing helped to derive several key lessons. First, it was found that implementing the Principle of Least Privilege is a highly essential step, and by creating a separate management account instead of using root privileges, a secure management system was established. Next, by using a combination of SSH keys, firewalls, and limiting privileges to users, a layer of defense-in-depth was established.
+
+Notably, this practical experience has reinforced the value of systematic and proven configuration changes in the process of securing live systems. Each change has required testing and validation before progressing, demonstrating how security needs may be balanced against the need for functionality and accessibility. The completion of these exercises has encouraged growing confidence in the implementation and management of secure Linux server infrastructure from a distant location.
+
 
 ## Conclusion
 
@@ -229,5 +212,7 @@ The implementation demonstrated the practical application of security principles
 - **Principle of Least Privilege**: Non-root administrative access with sudo
 - **Secure Remote Access**: Key-based authentication with restricted IP access
 - **Network Segmentation**: Firewall rules limiting exposure to authorized sources only
+
+These foundational controls significantly reduced the server's attack surface and established a secure baseline for future system operations.
 
 These foundational controls significantly reduced the server's attack surface and established a secure baseline for future system operations.
