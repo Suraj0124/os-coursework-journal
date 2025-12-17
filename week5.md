@@ -671,36 +671,9 @@ echo "Full log saved to: $LOGFILE"
 
 ---
 
-## Conclusion
+** Conclusion
 
-### Key Accomplishments
-
-This lab successfully implemented comprehensive security controls across multiple defensive layers:
-
-#### 1. Mandatory Access Control (MAC)
-- ✅ Implemented AppArmor with multiple enforced profiles
-- ✅ Created automated reporting script for MAC status tracking
-- ✅ Verified profile configurations and operational modes
-- ✅ Documented profile structure and enforcement mechanisms
-
-#### 2. Intrusion Detection System
-- ✅ Configured fail2ban for SSH brute-force protection
-- ✅ Set optimal security thresholds (3 attempts, 10-minute ban window)
-- ✅ Implemented automated monitoring and logging
-- ✅ Verified jail activation and proper log integration
-
-#### 3. Automatic Security Updates
-- ✅ Enabled unattended-upgrades for security patches
-- ✅ Configured trusted update sources
-- ✅ Balanced security needs with stability requirements
-- ✅ Established automated update verification and logging
-
-#### 4. Security Monitoring and Verification
-- ✅ Created comprehensive baseline verification script
-- ✅ Implemented remote monitoring capabilities
-- ✅ Established automated logging and reporting systems
-- ✅ Developed color-coded status indicators for quick assessment
-
+This project successfully strengthened system security across multiple layers. Mandatory Access Control was implemented using AppArmor with multiple enforced profiles, supported by an automated reporting script to track MAC status, verified profile configurations and operational modes, and clear documentation of profile structures and enforcement mechanisms. An Intrusion Detection System was established by configuring fail2ban to protect against SSH brute-force attacks, applying optimal thresholds of three failed attempts with a ten-minute ban window, and enabling automated monitoring, logging, and verified jail activation. Automatic security updates were enabled through unattended-upgrades, with trusted update sources configured to balance security and system stability, alongside automated verification and logging of updates. Finally, comprehensive security monitoring and verification were achieved by developing a baseline verification script, enabling remote monitoring capabilities, implementing automated logging and reporting systems, and introducing color-coded status indicators for rapid assessment.
 
 #### Mandatory Access Control (MAC)
 System-enforced security policy:
