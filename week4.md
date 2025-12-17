@@ -6,7 +6,7 @@ Week 4 marked a significant transition from planning to hands-on implementation 
 
 All tasks were deliberately carried out remotely via SSH, without relying on local console access. This constraint closely mirrored real-world server administration scenarios, where administrators are expected to manage systems securely over the network. Working exclusively through SSH required careful planning and validation at each step, as misconfiguration could have resulted in loss of access.
 
-Through this process, I gained practical experience in hardening SSH access using key-based authentication, implementing restrictive firewall rules, and managing user privileges effectively. Overall, this phase reinforced the importance of cautious, methodical configuration when securing production-like systems and highlighted how foundational security measures significantly reduce the server’s attack surface.
+Through this process, I gained practical experience in hardening SSH access using key-based authentication, implementing restrictive firewall rules, and managing user privileges effectively. Overall, this phase reinforced the importance of cautious, methodical configuration when securing production-like systems and highlighted how foundational security measures significantly reduce the server's attack surface.
 
 ---
 
@@ -56,9 +56,17 @@ PermitRootLogin no
 
 ### Screenshot Evidence
 
-> *Insert screenshot showing successful SSH key-based login*
+**SSH Key Generation:**
 
-![SSH Key-Based Authentication Screenshot](screenshots/ssh-key-auth.png)
+![SSH Key Generation](ssh-key.png)
+
+**SSH Key Copy:**
+
+![SSH Key Copy to Server](ssh-key-copy-id.png)
+
+**SSH Key-Based Authentication:**
+
+![SSH Key-Based Authentication](ssh-key-auth.png)
 
 ---
 
@@ -101,9 +109,7 @@ Default: deny (incoming), allow (outgoing), disabled (routed)
 
 ### Screenshot Evidence
 
-> *Insert screenshot showing firewall ruleset*
-
-![Firewall Rules Screenshot](screenshots/firewall-rules.png)
+![Firewall Rules Configuration](firewall-rules.png)
 
 ---
 
@@ -134,9 +140,7 @@ sudo passwd -l root
 
 ### Screenshot Evidence
 
-> *Insert screenshot showing non-root user with sudo access*
-
-![User Privilege Screenshot](screenshots/user-privileges.png)
+![User Privileges Configuration](user-privileges.png)
 
 ---
 
@@ -153,7 +157,7 @@ Demonstrate successful remote SSH access from the workstation.
 
 ### Screenshot Evidence
 
-![SSH Access Screenshot](screenshots/ssh-access.png)
+![SSH Access from Workstation](ssh-access.png)
 
 ---
 
@@ -166,17 +170,13 @@ Demonstrate successful remote SSH access from the workstation.
 
 ### Comparison Evidence
 
-#### Before
+#### Before Configuration
 
-```text
-# Paste original configuration
-```
+![Configuration Before Changes](before.png)
 
-#### After
+#### After Configuration
 
-```text
-# Paste modified configuration
-```
+![Configuration After Changes](after.png)
 
 ---
 
@@ -195,7 +195,7 @@ Demonstrate successful remote SSH access from the workstation.
 
 ### Screenshot Evidence
 
-![Firewall Documentation Screenshot](screenshots/firewall-documentation.png)
+![Firewall Rules Status](firewall-rules.png)
 
 ---
 
@@ -216,7 +216,7 @@ whoami
 
 ### Screenshot Evidence
 
-![Remote Administration Screenshot](screenshots/remote-admin.png)
+![Remote Administration Commands](remote-admin.png)
 
 ---
 
@@ -224,8 +224,10 @@ whoami
 
 This phase successfully implemented foundational system security by securing SSH access, restricting network access through firewall rules, and enforcing least-privilege administration using a non-root user. All configurations were performed remotely via SSH in compliance with the administrative constraints.
 
----
+The implementation demonstrated the practical application of security principles including:
+- **Defense in Depth**: Multiple layers of security (SSH keys, firewall, user privileges)
+- **Principle of Least Privilege**: Non-root administrative access with sudo
+- **Secure Remote Access**: Key-based authentication with restricted IP access
+- **Network Segmentation**: Firewall rules limiting exposure to authorized sources only
 
-**Note:** Replace all placeholder text and screenshots with actual evidence collected during implementation.
-
-
+These foundational controls significantly reduced the server's attack surface and established a secure baseline for future system operations.
