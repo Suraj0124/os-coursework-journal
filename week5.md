@@ -340,13 +340,6 @@ sudo cat /var/log/unattended-upgrades/unattended-upgrades.log
 - ⚠️ Compatibility issues with custom software
 - ⚠️ Resource usage during update process
 
-**Recommendation:** Enable automatic security updates for production systems but implement:
-- Proper monitoring and alerting
-- Rollback procedures
-- Test environments that mirror production
-- Scheduled maintenance windows for kernel updates
-- Regular backup strategies
-
 ---
 
 ## Part 3: Security Verification and Monitoring Scripts
@@ -708,44 +701,6 @@ This lab successfully implemented comprehensive security controls across multipl
 - ✅ Established automated logging and reporting systems
 - ✅ Developed color-coded status indicators for quick assessment
 
-### Security Posture Analysis
-
-The system now implements defense-in-depth with multiple security layers:
-
-**Prevention Layer:**
-- SSH hardening (key-based authentication, no root login)
-- Firewall rules (UFW with specific port restrictions)
-- MAC policies (AppArmor enforcing mandatory access controls)
-
-**Detection Layer:**
-- fail2ban intrusion detection (monitoring authentication attempts)
-- System monitoring scripts (tracking performance and security events)
-- Comprehensive audit logging (authentication, system events, security violations)
-
-**Response Layer:**
-- Automated IP banning (fail2ban responses)
-- Alert generation (log monitoring and notification)
-- Incident logging (comprehensive audit trail)
-
-**Maintenance Layer:**
-- Automatic security updates (unattended-upgrades)
-- Regular verification checks (security baseline script)
-- Performance monitoring (resource utilization tracking)
-
-### Mandatory vs Discretionary Access Control
-
-#### Discretionary Access Control (DAC)
-Traditional Linux file permissions based on:
-- **User Identity:** File owner controls access
-- **File Ownership:** Owner, group, and others permissions
-- **Voluntary Restrictions:** Users can modify permissions on their files
-- **Example:** `chmod 755 file.txt` - owner sets permissions
-
-**DAC Limitations:**
-- Users can weaken security on their own files
-- Compromised user account has full access to user's files
-- No system-wide security policy enforcement
-- Vulnerable to privilege escalation attacks
 
 #### Mandatory Access Control (MAC)
 System-enforced security policy:
