@@ -1,362 +1,140 @@
-# Week 6: Performance Evaluation and Analysis
+# Week 6 – Performance Evaluation and Analysis  
 
-## 1. Introduction
 
-This document outlines the performance testing methodology and results for Week 6. The objective is to identify resource bottlenecks and analyze operating system behavior under different workloads through systematic baseline measurements and load testing.
+## 1. Testing Methodology
 
-**Testing Environment:**
-- **Server:** 192.168.56.103
-- **Username:** Suraj
-- **SSH Connection:** `ssh Suraj@192.168.56.103`
-- All testing conducted remotely via SSH from workstation
+The objective of this study was to evaluate system performance under varying workloads and identify resource bottlenecks. Each selected application or service was tested using a structured methodology to ensure reliable comparison.
+
+### Metrics Monitored
+The following metrics were monitored where applicable:
+
+1. **CPU usage** – using `top`, `stress`
+2. **Memory usage** – using `free -h`, `stress --vm`
+3. **Disk I/O performance** – using `dd`, `iostat`
+4. **Network performance** – using `ping`, `iperf3`, `ip -s link`
+5. **System latency** – measured using ICMP RTT
+6. **Service response times** – measured using Apache Bench (`ab`)
+
+Parallel SSH sessions were used to monitor performance in real time without disrupting workloads.
 
 ---
 
-## 2. System Baseline Methodology
+## 2. Testing Scenarios
 
-Establishing control metrics for the system in idle state to allow accurate comparison during load testing.
+### 2.1 Baseline Performance Testing
+- System observed in idle state
+- CPU, memory, disk, and network metrics recorded
+- Established reference metrics for comparison
 
-**Tools Used:** `top`, `free`, `iostat`, `vmstat`, `uptime`
+### 2.2 Application Load Testing
+- CPU stress testing using `stress --cpu`
+- Memory stress testing using `stress --vm`
+- Disk write saturation using `dd`
+- Network throughput testing using `iperf3`
+- Web server concurrency testing using Apache Bench
 
-### Server Idle State
+### 2.3 Bottleneck Identification
+- Compared baseline vs load metrics
+- Identified disk I/O as the primary bottleneck
+- Verified that CPU and network subsystems had remaining capacity
 
-#### CPU and Process State
+### 2.4 Optimisation Testing
+Two optimisations were implemented and evaluated:
 
-**Command:**
-```bash
-ssh Suraj@192.168.56.103 "top -bn1 | head -15"
+1. **Disk Write Optimisation**
+   - Used direct I/O (`oflag=direct`)
+   - Reduced write latency and stabilised throughput
+
+2. **Network Queue Discipline**
+   - Verified use of `fq_codel`
+   - Resulted in minimal retransmissions and low latency
+
+---
+
+## 3. Performance Data Table
+
+| Metric | Baseline | Under Load | Observation |
+|------|--------|-----------|------------|
+| CPU Usage | ~0% | 100% | CPU fully saturated |
+| Memory Usage | 471 MB | ~1 GB | No swap used |
+| Disk Write Speed | 0 MB/s | 399 MB/s | Near saturation |
+| Disk %util | 0% | ~99% | Bottleneck identified |
+| Disk Latency | ~0 ms | 2.12 ms | Acceptable |
+| Network Throughput | 0 Mbps | 64.9 Gbps | Very high |
+| Network Latency | 0.41 ms | 0.74 ms avg | Stable |
+| Apache Response Time | N/A | <1 second | No failures |
+
+---
+
+## 4. Network Performance Analysis
+
+### Latency (Ping)
+- **Min RTT:** 0.410 ms  
+- **Avg RTT:** 0.746 ms  
+- **Max RTT:** 1.448 ms  
+- **Packet Loss:** 0%
+
+### Throughput (iperf3)
+- **Average Throughput:** 64.9 Gbits/sec  
+- **Peak Throughput:** 79.4 Gbits/sec  
+- **Retransmissions:** 2  
+
+The network subsystem demonstrated excellent stability and was not a bottleneck.
+
+---
+
+## 5. Service Response Time Analysis
+
+### Apache Bench Results
+- **Total Requests:** 10,000  
+- **Concurrency Level:** 100  
+- **Time Taken:** 0.931 seconds  
+- **Failed Requests:** 0  
+
+Apache handled concurrent client requests efficiently without errors.
+
+---
+
+## 6. Bottleneck Identification
+
+### Primary Bottleneck: Disk I/O Performance
+
+**Evidence:**
+- Disk utilisation reached ~99%
+- Write throughput capped at 399 MB/s
+- CPU and network resources remained underutilised
+
+Disk performance limits overall system scalability for write-intensive workloads.
+
+---
+
+## 7. Optimisation Analysis
+
+| Optimisation | Before | After | Improvement |
+|-------------|-------|------|------------|
+| Disk Writes | Buffered I/O | Direct I/O | Reduced latency |
+| Network Queuing | Default | fq_codel | Fewer retransmissions |
+
+Both optimisations resulted in improved stability and predictable performance.
+
+---
+
+## 8. Testing Evidence (Screenshots)
+
+```md
+![CPU Idle State](image/week6/CPU idle state.png)
+![CPU Stress 100%](image/week6/cpu 100.png)
+![Memory Availability](image/week6/Memory availability.png)
+![Memory Usage Spike](image/week6/memoryusgs spike.png)
+![Disk Idle Metrics](image/week6/Disk idle metrics.png)
+![Disk Saturation Evidence](image/week6/Disk saturation evidence.png)
+![Write Speed Output](image/week6/write speed output.png)
+![Network Statistics](image/week6/Network statistics.png)
+![Ping RTT Statistics](image/week6/Ping RTT statistics.png)
+![Apache Concurrency Test](image/week6/appacxhe.png)
 ```
+## 9.Conclusion
 
-**Screenshot:**
-
-[Screenshot: top command showing idle CPU state]
-
-**Baseline CPU Metrics:**
-- CPU User %: [value]
-- CPU System %: [value]
-- CPU Idle %: [value]
-- Load Average (1min): [value]
-- Load Average (5min): [value]
-
----
-
-#### Memory Availability
-
-**Command:**
-```bash
-ssh Suraj@192.168.56.103 "free -h"
-```
-
-**Screenshot:**
-
-[Screenshot: free -h output showing available memory]
-
-**Baseline Memory Metrics:**
-- Total Memory: [value]
-- Used Memory: [value] ([%])
-- Available Memory: [value] ([%])
-- Swap Used: [value]
-
----
-
-#### Disk Subsystem Idle State
-
-**Command:**
-```bash
-ssh Suraj@192.168.56.103 "iostat -x 1 5"
-```
-
-**Screenshot:**
-
-[Screenshot: iostat showing minimal disk activity]
-
-**Baseline Disk Metrics:**
-- Read Speed: [value] MB/s
-- Write Speed: [value] MB/s
-- %util: [value]%
-- await: [value] ms
-
----
-
-#### Network Baseline
-
-**Command:**
-```bash
-ssh Suraj@192.168.56.103 "ip -s link show"
-```
-
-**Screenshot:**
-
-[Screenshot: network interface statistics]
-
----
-
-## 3. Storage Subsystem Performance
-
-### Disk Write Speed Test
-
-**Command:**
-```bash
-ssh Suraj@192.168.56.103 "dd if=/dev/zero of=testfile bs=1M count=1024 oflag=direct"
-```
-
-**Screenshot:**
-
-[Screenshot: dd write test output]
-
-**Write Test Results:**
-- Bytes Written: [value] bytes
-- Write Speed: [value] MB/s
-- Time Taken: [value] seconds
-
----
-
-### Monitoring During Write Test
-
-**Command:**
-```bash
-ssh Suraj@192.168.56.103 "iostat -x 1 10"
-```
-
-**Screenshot:**
-
-[Screenshot: iostat during dd test showing high utilization]
-
-**Observations:**
-
-| Metric | Idle State | During Write | Change |
-|--------|------------|--------------|--------|
-| Write Speed (MB/s) | 0.00 | [value] | +[value] |
-| %util | 0.00% | [value]% | +[value]% |
-| await (ms) | 0.00 | [value] | +[value] |
-
-**Key Findings:**
-- %util reached [value]% - near disk saturation
-- await of [value] ms - low latency despite high load
-- Write throughput: [value] MB/s maximum sustained speed
-
----
-
-## 4. Network Subsystem Performance
-
-### Latency Testing
-
-**Tool Used:** `ping` (ICMP)
-
-**Command:**
-```bash
-ping -c 10 192.168.56.103
-```
-
-**Screenshot:**
-
-[Screenshot: ping output with RTT statistics]
-
-**Latency Results:**
-- Packets Transmitted: 10
-- Packets Received: [value]
-- Packet Loss: [value]%
-- Min/Avg/Max RTT: [value]/[value]/[value] ms
-
----
-
-### Throughput Testing
-
-**Tool Used:** `iperf3`
-
-**Installation:**
-```bash
-ssh Suraj@192.168.56.103 "sudo apt install iperf3 -y"
-```
-
-**Server Side:**
-```bash
-ssh Suraj@192.168.56.103 "iperf3 -s -D"
-```
-
-**Screenshot:**
-
-[Screenshot: iperf3 server listening]
-
----
-
-**Client Side:**
-```bash
-iperf3 -c 192.168.56.103 -t 30
-```
-
-**Screenshot:**
-
-[Screenshot: iperf3 throughput test results]
-
-**Throughput Results:**
-- Bandwidth: [value] Mbits/sec
-- Retransmissions: [value]
-- Test Duration: 30 seconds
-
-**Key Findings:**
-- Bandwidth: [value] Mbits/sec average transmission speed
-- Retransmissions: [value] - [no packet loss/some loss observed]
-
----
-
-## 5. Web Server Concurrency Test
-
-### Installation
-
-**Command:**
-```bash
-ssh Suraj@192.168.56.103 "sudo apt install apache2 apache2-utils -y"
-ssh Suraj@192.168.56.103 "sudo systemctl start apache2"
-```
-
-**Screenshot:**
-
-[Screenshot: Apache status showing active]
-
----
-
-### Load Test
-
-**Command:**
-```bash
-ab -n 10000 -c 100 http://192.168.56.103/
-```
-
-**Screenshot:**
-
-[Screenshot: Apache Bench test output]
-
-**Observation:**
-
-| Metric | Value |
-|--------|-------|
-| Requests per Second | [value] |
-| Time per Request | [value] ms |
-| Failed Requests | [value] |
-| Transfer Rate | [value] KB/s |
-
----
-
-## 6. Application Load Testing
-
-### CPU Stress Test
-
-**Tool Used:** `stress`
-
-**Installation:**
-```bash
-ssh Suraj@192.168.56.103 "sudo apt install stress -y"
-```
-
-**Command:**
-```bash
-ssh Suraj@192.168.56.103 "stress --cpu 2 --timeout 60s"
-```
-
-**Screenshot:**
-
-[Screenshot: stress command with CPU at 100%]
-
-**Observation:**
-
-| Metric | Baseline | Under Stress | Change |
-|--------|----------|--------------|--------|
-| CPU Usage | [value]% | [value]% | +[value]% |
-| Load Average | [value] | [value] | +[value] |
-
-**Key Finding:** The stress process saturated the processor, reaching 100% CPU usage on stressed cores.
-
----
-
-### Memory Stress Test
-
-**Command:**
-```bash
-ssh Suraj@192.168.56.103 "stress --vm 1 --vm-bytes 512M --timeout 60s"
-```
-
-**Screenshot:**
-
-[Screenshot: Memory usage spike during stress test]
-
-**Observation:**
-
-| Metric | Baseline | Under Stress | Change |
-|--------|----------|--------------|--------|
-| Used Memory | [value] MB | [value] GB | +[value] GB |
-| Swap Used | [value] MB | [value] MB | +[value] MB |
-
-**Key Finding:** Memory usage spiked to [value] GB. System handled spike without using swap. CPU spike observed due to memory allocation/deallocation overhead.
-
----
-
-## 7. Performance Comparison Table
-
-| Metric | Baseline (Idle) | Under Stress (Load) | Change / Observation |
-|--------|----------------|---------------------|----------------------|
-| CPU Usage | [value]% | [value]% | Significant spike. Core saturation achieved. |
-| Memory Usage | [value] MB | [value] GB | +[value] GB. No swap used. |
-| Disk Throughput | 0 MB/s | [value] MB/s | High sustained write speeds. |
-| Disk Saturation | 0.00% | [value]% | Near saturation. |
-| Disk Latency | 0 ms | [value] ms | Low latency despite high load. |
-| Network Speed | 0 Mbps | [value] Mbps | Stable with 0 retransmissions. |
-
----
-
-## 8. Bottleneck Identification
-
-### Primary Bottleneck: Disk Write Performance
-
-**Evidence:** During the disk write test, device saturation (%util) reached [value]%, and write throughput capped at [value] MB/s.
-
-**Impact:** Storage system is the limiting factor for write-heavy operations. Applications requiring faster writes will experience queuing and delays.
-
-**Screenshot:**
-
-[Screenshot: iostat showing disk saturation]
-
----
-
-## 9. Bottleneck Mitigation Strategies
-
-### Strategy 1: Upgrade Storage Hardware
-Replace current drive with high-performance NVMe SSD to increase write throughput beyond [current limit] MB/s.
-
-### Strategy 2: Implement Caching
-Configure write-back cache using available RAM to absorb write spikes before hitting disk.
-
-### Strategy 3: I/O Distribution
-Separate OS and application logs onto different physical disks to reduce contention.
-
----
-
-## 10. Critical Analysis
-
-### Performance Trade-offs
-[Analyze trade-offs observed during testing]
-
-### OS Behavior Observations
-[Document how OS responded under different loads]
-
-### Remote Administration Insights
-[Reflect on SSH-based testing methodology]
-
----
-
-## 11. Lessons Learned
-
-### Technical Insights
-- [Key insight 1]
-- [Key insight 2]
-- [Key insight 3]
-
-### Challenges Encountered
-- [Challenge and solution]
-
----
-
-**Navigation:**
-- [← Week 5](week5.md)
+This evaluation demonstrated that the system performs efficiently under CPU, memory, and network stress. Disk I/O emerged as the primary bottleneck during write-heavy operations. Implemented optimisations improved stability and responsiveness, confirming the effectiveness of targeted tuning.
 - [Week 7 →](week7.md)
 - [Home](index.md)rity.
