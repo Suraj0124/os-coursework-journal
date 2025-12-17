@@ -24,36 +24,6 @@ Configure SSH to use key-based authentication and disable password-based login.
 * Updated SSH daemon configuration
 * Restarted SSH service
 
-### Commands Used
-
-```bash
-# Commands executed from the workstation
-ssh-keygen -t ed25519 -C "admin@workstation"
-ssh-copy-id adminuser@<server_ip>
-
-sudo nano /etc/ssh/sshd_config
-sudo systemctl restart ssh
-```
-
-### Configuration File Changes
-
-**File:** `/etc/ssh/sshd_config`
-
-#### Before Configuration
-
-```text
-# Default SSH configuration (excerpt)
-#PasswordAuthentication yes
-#PermitRootLogin prohibit-password
-```
-
-#### After Configuration
-
-```text
-PasswordAuthentication no
-PubkeyAuthentication yes
-PermitRootLogin no
-```
 
 ### Screenshot Evidence
 
