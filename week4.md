@@ -1,12 +1,13 @@
 # Phase 4: Initial System Configuration & Security Implementation (Week 4)
 
-## Reflective Overview
+##  Overview
+Week 4 covered the integration of basic security measures within the Ubuntu Server setup. The two main goals were securing remote connections using SSH hardening, securing network access using the firewall, and properly dealing with user privileges. Every administrative activity was accomplished through a remote SSH connection, just like a practical scenario of server management.
+The key accomplishments were:
+Configuring SSH with key-based authentication and disabling password login
+Implementing UFW firewall rules to restrict SSH access to authorized workstations only
+Creating and configuring a non-root administrative user with sudo privileges
+Successfully demonstrating remote system administration capabilities
 
-Week 4 marked a significant transition from planning to hands-on implementation of security controls on the Ubuntu Server. During this phase, I focused on applying the core security principles identified earlier in the project, particularly around securing remote access, reducing unnecessary network exposure, and enforcing the principle of least privilege.
-
-All tasks were deliberately carried out remotely via SSH, without relying on local console access. This constraint closely mirrored real-world server administration scenarios, where administrators are expected to manage systems securely over the network. Working exclusively through SSH required careful planning and validation at each step, as misconfiguration could have resulted in loss of access.
-
-Through this process, I gained practical experience in hardening SSH access using key-based authentication, implementing restrictive firewall rules, and managing user privileges effectively. Overall, this phase reinforced the importance of cautious, methodical configuration when securing production-like systems and highlighted how foundational security measures significantly reduce the server's attack surface.
 
 ---
 
@@ -219,6 +220,11 @@ whoami
 ![Remote Administration Commands](image/week4/remote-admin.png)
 
 ---
+## Reflection
+This phase represented an important transition from planning to the execution of the security measures. Operation in the SSH through the local console without human intervention required very cautious treatment throughout, since wrong setup could have eliminated all entry to the server.
+The process of implementation has once again reaffirmed many learnings. Firstly, the concept of least privilege was highly relevant because, by creating an administrative user with the help of useradd, I have made the management process more secure than it could have been with root privilege. Secondly, the security layers like SSH keys, firewall restrictions, and user privileges added an element where the more the security layers, the more the attack surface is reduced.
+Most importantly, this experience taught me the significance of prudent and validated configurations in the context of securing systems when working with *nix environments. Additionally, it taught me the importance of balancing the need for security with the ease of accessibility when implementing security measures, as each of the steps I was required to complete was validated and tested for functionality before moving ahead with another step.
+
 
 ## Conclusion
 
