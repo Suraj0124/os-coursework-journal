@@ -1,52 +1,49 @@
 # Phase 4: Initial System Configuration & Security Implementation (Week 4)
 
-**Platform:** Ubuntu Server (Ubuntu Linux)
+## Reflective Overview
 
-This document records the deployment, configuration, and foundational security implementation performed on the Ubuntu server during Phase 4. It includes command evidence, configuration changes, and security controls as required.
+Week 4 marked a significant transition from planning to hands-on implementation of security controls on the Ubuntu Server. During this phase, I focused on applying the core security principles identified earlier in the project, particularly around securing remote access, reducing unnecessary network exposure, and enforcing the principle of least privilege.
 
----
+All tasks were deliberately carried out remotely via SSH, without relying on local console access. This constraint closely mirrored real-world server administration scenarios, where administrators are expected to manage systems securely over the network. Working exclusively through SSH required careful planning and validation at each step, as misconfiguration could have resulted in loss of access.
 
-## 1. Server Deployment Overview
-
-* **OS:** Ubuntu Server (LTS)
-* **Access Method:** SSH
-* **Purpose:** Secure remote administration with least-privilege access
+Through this process, I gained practical experience in hardening SSH access using key-based authentication, implementing restrictive firewall rules, and managing user privileges effectively. Overall, this phase reinforced the importance of cautious, methodical configuration when securing production-like systems and highlighted how foundational security measures significantly reduce the server's attack surface.
 
 ---
 
-## 2. SSH Configuration with Key-Based Authentication
+## 1. SSH Configuration with Key-Based Authentication
 
-### 2.1 Generate SSH Key Pair (Client Workstation)
+### Objective
 
-```bash
-ssh-keygen -t ed25519 -C "admin-workstation"
-```
+Configure SSH to use key-based authentication and disable password-based login.
 
-* Private key stored locally
-* Public key used for server authentication
+### Steps Performed
 
-### 2.2 Copy Public Key to Server
+* Generated SSH key pair on the workstation
+* Copied public key to the Ubuntu server
+* Updated SSH daemon configuration
+* Restarted SSH service
 
-```bash
-ssh-copy-id adminuser@<server-ip>
-```
-
-Alternatively:
+### Commands Used
 
 ```bash
-cat ~/.ssh/id_ed25519.pub | ssh adminuser@<server-ip> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+# Commands executed from the workstation
+ssh-keygen -t ed25519 -C "admin@workstation"
+ssh-copy-id adminuser@<server_ip>
+
+sudo nano /etc/ssh/sshd_config
+sudo systemctl restart ssh
 ```
 
-### 2.3 SSH Daemon Configuration
+### Configuration File Changes
 
 **File:** `/etc/ssh/sshd_config`
 
 #### Before Configuration
 
 ```text
+# Default SSH configuration (excerpt)
 #PasswordAuthentication yes
-#PubkeyAuthentication yes
-PermitRootLogin yes
+#PermitRootLogin prohibit-password
 ```
 
 #### After Configuration
@@ -57,165 +54,180 @@ PubkeyAuthentication yes
 PermitRootLogin no
 ```
 
-Restart SSH service:
+### Screenshot Evidence
 
-```bash
-sudo systemctl restart ssh
-```
+**SSH Key Generation:**
+
+![SSH Key Generation](ssh-key.png)
+
+**SSH Key Copy:**
+
+![SSH Key Copy to Server](ssh-key-copy-id.png)
+
+**SSH Key-Based Authentication:**
+
+![SSH Key-Based Authentication](ssh-key-auth.png)
 
 ---
 
-## 3. Firewall Configuration (Restricted SSH Access)
+## 2. Firewall Configuration (Restricted SSH Access)
 
-### 3.1 Firewall Tool Used
+### Objective
 
-* **UFW (Uncomplicated Firewall)**
+Configure a firewall allowing SSH access **only from a specific workstation IP address**.
 
-### 3.2 Default Firewall Policies
+### Firewall Tool Used
+
+* UFW (Uncomplicated Firewall)
+
+### Steps Performed
+
+* Enabled UFW
+* Allowed SSH access from workstation IP only
+* Denied all other incoming connections by default
+
+### Commands Used
 
 ```bash
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
-```
-
-### 3.3 Allow SSH from Specific Workstation Only
-
-```bash
-sudo ufw allow from <workstation-ip> to any port 22 proto tcp
-```
-
-### 3.4 Enable Firewall
-
-```bash
+sudo ufw allow from <workstation_ip> to any port 22 proto tcp
 sudo ufw enable
 ```
 
-### 3.5 Firewall Ruleset Verification
-
-```bash
-sudo ufw status verbose
-```
-
-**Expected Output (Example):**
+### Complete Firewall Ruleset
 
 ```text
 Status: active
 
 To                         Action      From
 --                         ------      ----
-22/tcp                     ALLOW       <workstation-ip>
+22/tcp                     ALLOW       <workstation_ip>
+
+Default: deny (incoming), allow (outgoing), disabled (routed)
 ```
+
+### Screenshot Evidence
+
+![Firewall Rules Configuration](firewall-rules.png)
 
 ---
 
-## 4. User Management & Privilege Configuration
+## 3. User Management & Privilege Configuration
 
-### 4.1 Create Non-Root Administrative User
+### Objective
+
+Create a non-root administrative user and implement proper privilege management.
+
+### Steps Performed
+
+* Created a new non-root user
+* Added user to `sudo` group
+* Disabled direct root SSH login
+
+### Commands Used
 
 ```bash
 sudo adduser adminuser
-```
-
-### 4.2 Grant Sudo Privileges
-
-```bash
 sudo usermod -aG sudo adminuser
+sudo passwd -l root
 ```
 
-Verify group membership:
+### Verification
 
-```bash
-groups adminuser
-```
+* Logged in as non-root user via SSH
+* Verified sudo privileges
 
-### 4.3 Disable Root SSH Login
+### Screenshot Evidence
 
-Configured in `/etc/ssh/sshd_config`:
-
-```text
-PermitRootLogin no
-```
+![User Privileges Configuration](user-privileges.png)
 
 ---
 
-## 5. SSH Access Evidence
+## 4. SSH Access Evidence
 
-### 5.1 Successful SSH Login (Key-Based)
+### Objective
 
-```bash
-ssh adminuser@<server-ip>
-```
+Demonstrate successful remote SSH access from the workstation.
 
-**Evidence to Attach:**
+### Evidence
 
-* Screenshot showing successful login without password prompt
-* Terminal prompt displaying logged-in username and hostname
+* SSH login prompt
+* Successful connection confirmation
 
----
+### Screenshot Evidence
 
-## 6. Configuration File Evidence (Before & After)
-
-### 6.1 SSH Configuration File
-
-**File:** `/etc/ssh/sshd_config`
-
-| Setting                | Before          | After |
-| ---------------------- | --------------- | ----- |
-| PasswordAuthentication | yes (commented) | no    |
-| PubkeyAuthentication   | commented       | yes   |
-| PermitRootLogin        | yes             | no    |
+![SSH Access from Workstation](ssh-access.png)
 
 ---
 
-## 7. Firewall Documentation
+## 5. Configuration Files – Before & After Comparison
 
-### 7.1 Complete Firewall Ruleset
+### Files Modified
 
-```bash
-sudo ufw status numbered
-```
+* `/etc/ssh/sshd_config`
+* `/etc/ufw/user.rules` (if applicable)
 
-**Documented Rules:**
+### Comparison Evidence
 
-1. Default deny incoming
-2. Allow SSH only from trusted workstation IP
-3. Outgoing traffic allowed
+#### Before Configuration
+
+![Configuration Before Changes](before.png)
+
+#### After Configuration
+
+![Configuration After Changes](after.png)
 
 ---
 
-## 8. Remote Administration Evidence (via SSH)
+## 6. Firewall Documentation
 
-### 8.1 Commands Executed Remotely
+### Default Policies
+
+* Incoming: Deny
+* Outgoing: Allow
+
+### Allowed Services
+
+| Service | Port | Source IP        |
+| ------- | ---- | ---------------- |
+| SSH     | 22   | <Workstation_IP> |
+
+### Screenshot Evidence
+
+![Firewall Rules Status](firewall-rules.png)
+
+---
+
+## 7. Remote Administration Evidence
+
+### Objective
+
+Demonstrate administrative commands executed remotely via SSH.
+
+### Commands Executed
 
 ```bash
-uname -a
-uptime
-whoami
 sudo apt update
+sudo apt upgrade -y
+sudo ufw status verbose
+whoami
 ```
 
-**Evidence to Attach:**
+### Screenshot Evidence
 
-* Screenshot showing commands executed over SSH
-* Output confirming administrative privileges via `sudo`
-
----
-
-## 9. Security Summary
-
-* Root login disabled
-* Password-based SSH authentication disabled
-* SSH access restricted to trusted workstation
-* Non-root administrative user implemented
-* Firewall actively enforcing least-privilege access
+![Remote Administration Commands](remote-admin.png)
 
 ---
 
-## 10. Conclusion
+## Conclusion
 
-Phase 4 successfully established secure remote administration and foundational system hardening on the Ubuntu server. These controls significantly reduce attack surface and align with security best practices for Linux server deployment.
+This phase successfully implemented foundational system security by securing SSH access, restricting network access through firewall rules, and enforcing least-privilege administration using a non-root user. All configurations were performed remotely via SSH in compliance with the administrative constraints.
 
----
+The implementation demonstrated the practical application of security principles including:
+- **Defense in Depth**: Multiple layers of security (SSH keys, firewall, user privileges)
+- **Principle of Least Privilege**: Non-root administrative access with sudo
+- **Secure Remote Access**: Key-based authentication with restricted IP access
+- **Network Segmentation**: Firewall rules limiting exposure to authorized sources only
 
-**End of Phase 4 Documentation**
-
+These foundational controls significantly reduced the server's attack surface and established a secure baseline for future system operations.

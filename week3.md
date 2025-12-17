@@ -1,8 +1,9 @@
-# Assessment Week 3: Performance Workload Generation and Tool Selection
+Phase 3: Application Selection for Performance Testing (Week 3)
+
 
 ## Introduction
 
-This week's objective is to select and justify specific applications and tools for generating various types of system workloads for performance evaluation. For each selected tool, we will outline its key features and provide installation instructions.
+The task of this week is to identify and defend particular applications and tools in the creation of different types of system workloads to be used in the performance assessment. On every chosen tool, we will describe its main characteristics and give the installation guide.s.
 
 ---
 
@@ -22,7 +23,7 @@ Verification for installation can be done using `sysbench --version`.
 
 ![sysbench installation](image/week3/sysbenchinstall.png)
 
-![sysbench version](image/week3/sysbenchversion.png)
+![sysbench version](image/week3/sysbencversion.png)
 
 ---
 
@@ -52,20 +53,6 @@ Alternatives for I/O testing include `stress`, `stress-ng`, `dd`, and `fio`.
 
 **Fio (Flexible I/O Tester)** was selected due to its high flexibility and configurability. It is capable of simulating specific I/O patterns, such as those found in database or file server environments, and can bypass the operating system's cache to measure the true speed of the underlying hardware.
 
-#### Installation
-
-This tool can be installed using the command:
-
-`sudo apt install fio -y`
-
-Verification:
-
-`fio --version`
-
-![fio version](image/week3/fioversion.png)
-
----
-
 ### Network-Intensive Workload
 
 **iPerf3** was chosen over other alternatives such as `ping`, `mtr`, `netperf`, `nload`, `ethtool`, `netcat`, `hping3`, `pingpong`, and `bmon`.
@@ -76,19 +63,6 @@ The justification for selecting iPerf3 is based on the following features:
 2. It is completely independent of hard drive speed, focusing solely on network capacity.
 3. It is the optimal tool for testing network pipe capacity.
 
-#### Installation
-
-It can be installed with:
-
-`sudo apt install iperf3 -y`
-
-Verification:
-
-`iperf3 --version`
-
-![iperf3 version](image/week3/iperf3version.png)
-
----
 
 ### Server-Based Workload
 
@@ -98,13 +72,25 @@ Verification:
 
 Apache2 can be installed using:
 
-`sudo apt install apache2 -y`
+`sudo apt install fio iperf3 apache2 -y `
 
 ![apache2 installation](image/week3/fioiperf3apache2-yinstall.png)
 
 ![apache2 status](image/week3/apache2.png)
 
+Verification:
+
+`iperf3 --version`
+
+![iperf3 version](image/week3/iperf3version.png)
+
 ---
+
+Verification:
+
+`iperf3 --version`
+
+![iperf3 version](image/week3/iperf3version.png)
 
 ## Application Selection Matrix
 
@@ -112,11 +98,11 @@ The following matrix details the tools selected to generate specific workloads f
 
 | Workload Type | Selected Application | Alternatives Considered | Justification for Selection |
 | :--- | :--- | :--- | :--- |
-| **CPU-Intensive** | **Sysbench** | stress, stress-ng, openssl, prime95 | Chosen for its mathematical consistency (prime number calculation), providing a stable, repeatable processor load ideal for benchmarking. |
-| **RAM-Intensive** | **Stress-ng** | stress, memtester | Selected as an upgraded version of `stress`, allowing for aggressive cycle memory allocation testing and evaluation of swap performance. |
-| **I/O-Intensive** | **Fio** | dd, stress, stress-ng | Preferred for its high flexibility and ability to simulate specific database/file server patterns and bypass the OS cache to measure true hardware speed. |
-| **Network-Intensive** | **iPerf3** | ping, netcat, nload, hping3 | Best for testing pipe capacity, as it measures pure TCP/UDP throughput, jitter, and packet loss, independent of hard drive speeds. |
-| **Server-Based** | **Apache2** | nginx, lighttpd | Widely used web server that generates mixed workloads representing real-world server scenarios. |
+| **CPU-Intensive** | **Sysbench** | stress, stress-ng, openssl, prime95 | I selected it because of its deterministic CPU benchmarking based on prime number counting which provides consistent, repeatable, and comparable measurements of the processor performance. |
+| **RAM-Intensive** | **Stress-ng** | stress, memtester | Selected as an improved stressor to stress, provides more developed memory stressors to facilitate aggressive pattern of allocation and efficient analysis of memory and swap behavior.|
+| **I/O-Intensive** | **Fio** | dd, stress, stress-ng |Preferred due to its high configurability, enabling realistic simulation of database and file server I/O workloads while bypassing OS cache to measure true storage performance. |
+| **Network-Intensive** | **iPerf3** | ping, netcat, nload, hping3 | This comes in extremely handy when benchmarking a network, as it measures TCP/UDP throughput, jitter, and loss of packets precisely and gives a solid idea of the network capacity without being influenced by disk performance. |
+| **Server-Based** | **Apache2** | nginx, lighttpd |Chosen due to its common usage and the tendency to produce heterogeneous and real-world web-server workloads, and thus determining its relevance in assessing overall server performance. |
 
 ---
 
@@ -177,20 +163,20 @@ CPU and RAM usage are expected to remain low. The primary metric will be network
 
 **Server Side**
 
-![server side listening](image/week3/iperf3servercde.png)
+![server side listening](image/week3/iperf3servercode.png)
 
 **Client Side**
 
-![client side testing](image/week3/iperf3clientremode.png)
+![client side testing](image/week3/iperf3clinentrcode.png)
 
 ---
 
 ## Monitoring Strategy 
 
-To measure the performance impact of the selected applications, we will utilize the monitoring tools and strategies established in Week 2, including `top`, `htop`, `vmstat`, `iostat`, and `nmon`. Each workload was executed independently while observing real-time resource usage to identify bottlenecks and system behavior under stress.
+To measure the performance impact of the selected applications, we will utilize the monitoring tools and strategies established in Week 2, including `top`, `htop`, `vmstat`, `iostat`. Each workload was executed independently while observing real-time resource usage to identify bottlenecks and system behavior under stress.
 
 ---
 
 ## Reflection
 
-This phase improved my understanding of how different workloads impact specific system resources. Selecting appropriate tools allowed me to isolate CPU, memory, disk, and network behavior more effectively. These observations will be valuable in later phases when analyzing performance bottlenecks and optimizing system configurations.
+This stage refined my understanding of biting work loads to system resources. The ability to use the appropriate tools enabled me to identify CPU, memory, disk, and network hang-ups more precisely. The findings will prove to be of great help when I address performance bottlenecks and configurations later.
