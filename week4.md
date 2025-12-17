@@ -3,10 +3,10 @@
 ##  Overview
 Week 4 covered the integration of basic security measures within the Ubuntu Server setup. The two main goals were securing remote connections using SSH hardening, securing network access using the firewall, and properly dealing with user privileges. Every administrative activity was accomplished through a remote SSH connection, just like a practical scenario of server management.
 The key accomplishments were:
-Configuring SSH with key-based authentication and disabling password login
-Implementing UFW firewall rules to restrict SSH access to authorized workstations only
-Creating and configuring a non-root administrative user with sudo privileges
-Successfully demonstrating remote system administration capabilities
+* Configuring SSH with key-based authentication and disabling password login
+* Implementing UFW firewall rules to restrict SSH access to authorized workstations only
+* Creating and configuring a non-root administrative user with sudo privileges
+* Successfully demonstrating remote system administration capabilities
 
 
 ---
