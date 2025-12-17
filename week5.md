@@ -25,7 +25,7 @@ Ubuntu systems typically use **AppArmor** as their Mandatory Access Control (MAC
 sudo aa-status
 ```
 
-![AppArmor Status](aa-status)
+![AppArmor Status](image/week5/aa-status)
 
 **Analysis:** The system shows multiple AppArmor profiles loaded and active, providing mandatory access control for various system services.
 
@@ -39,19 +39,19 @@ sudo aa-status
 ```bash
 sudo aa-status --enforced
 ```
-![Enforced Profiles](sudo-aa-status--enforced)
+![Enforced Profiles](image/week5/sudo-aa-status--enforced)
 
 **Complain Mode Profiles:**
 ```bash
 sudo aa-status --complaining
 ```
-![Complaining Profiles](sudo-aa-status--complaining)
+![Complaining Profiles](image/week5/sudo-aa-status--complaining)
 
 **Profiled Services:**
 ```bash
 sudoaa-status-profiled
 ```
-![Profiled Services](sudoaa-status-profiled)
+![Profiled Services](image/week5/sudoaa-status-profiled)
 
 #### Understanding Profile Modes
 
@@ -64,7 +64,7 @@ sudoaa-status-profiled
 ```bash
 sudo cat /etc/apparmor.d/usr.sbin.tcpdump
 ```
-![tcpdump Profile](usr.sbin.tcpdump)
+![tcpdump Profile](image/week5/usr.sbin.tcpdump)
 
 This profile defines the specific permissions and file access rules for the tcpdump network monitoring tool.
 
@@ -74,7 +74,7 @@ This profile defines the specific permissions and file access rules for the tcpd
 
 #### Script Implementation: `apparmor-report.sh`
 
-![AppArmor Report Script](apparmor-report.sh)
+![AppArmor Report Script](image/week5/apparmor-report.sh)
 
 **Script Breakdown:**
 
@@ -113,7 +113,7 @@ echo "Count: $complain_count"
 
 **Script Execution:**
 
-![AppArmor Report Output](nano-apparmor-report.sh)
+![AppArmor Report Output](image/week5/nano-apparmor-report.sh)
 
 **Key Features:**
 - Checks for AppArmor installation
@@ -129,7 +129,7 @@ echo "Count: $complain_count"
 
 #### Installation Verification
 
-![fail2ban Installation](installfail2)
+![fail2ban Installation](image/week5/installfail2)
 
 ```bash
 sudo apt update
@@ -147,7 +147,7 @@ sudo nano /etc/fail2ban/jail.local
 
 **SSH Jail Configuration:**
 
-![fail2ban Configuration](sudo-cat-etcaptaptconf.d50unattended-upgrades)
+![fail2ban Configuration](image/week5/sudo-cat-etcaptaptconf.d50unattended-upgrades)
 
 ```ini
 [sshd]
@@ -178,13 +178,13 @@ sudo fail2ban-client status
 sudo fail2ban-client status sshd
 ```
 
-![fail2ban Status](sudo-fail2ban-client-status-sshd)
+![fail2ban Status](image/week5/sudo-fail2ban-client-status-sshd)
 
 **Analysis:** The output shows the SSH jail is active and monitoring authentication attempts. Currently, no IPs are banned, indicating no recent brute-force attempts.
 
 #### System Service Status
 
-![fail2ban Service Status](sudo-systemctl-restart-and-enable-fail2ban)
+![fail2ban Service Status](image/week5/sudo-systemctl-restart-and-enable-fail2ban)
 
 The service is configured to:
 - Start automatically on boot (enabled)
@@ -197,7 +197,7 @@ The service is configured to:
 sudo tail -30 /var/log/fail2ban.log
 ```
 
-![fail2ban Logs](sudo-tail-30-varlogfail2banlog)
+![fail2ban Logs](image/week5/sudo-tail-30-varlogfail2banlog)
 
 **Log Analysis:** The logs show fail2ban initialization, jail activation, and normal monitoring activity. No ban actions are present, indicating the system is secure.
 
@@ -212,8 +212,8 @@ sudo apt install unattended-upgrades
 sudo dpkg-reconfigure -plow unattended-upgrades
 ```
 
-![Unattended Upgrades Installation](installunattended-upgrades)
-![Configuration Dialog](sudo-dpkg-reconfigure-ure--plow-unattended-upgrades)
+![Unattended Upgrades Installation](image/week5/installunattended-upgrades)
+![Configuration Dialog](image/week5/sudo-dpkg-reconfigure-ure--plow-unattended-upgrades)
 
 #### Verification
 
@@ -222,14 +222,14 @@ sudo dpkg-reconfigure -plow unattended-upgrades
 sudo systemctl status unattended-upgrades
 ```
 
-![Service Status](udocat-varlogunattended-upgradesunattended-upgradesun-attended-upg...)
+![Service Status](image/week5/udocat-varlogunattended-upgradesunattended-upgradesun-attended-upg...)
 
 **Configuration Review:**
 ```bash
 sudo cat /etc/apt/apt.conf.d/50unattended-upgrades
 ```
 
-![Configuration File](unattended-upgrades)
+![Configuration File](image/week5/unattended-upgrades)
 
 **Security vs Stability Trade-off:**
 
@@ -255,8 +255,8 @@ sudo cat /etc/apt/apt.conf.d/50unattended-upgrades
 
 #### Script Implementation: `security-baseline.sh`
 
-![Security Baseline Script - Part 1](nano-security-baseline.sh)
-![Security Baseline Script - Part 2](nano-security-baseline.sh)
+![Security Baseline Script - Part 1]image/week5/(nano-security-baseline.sh)
+![Security Baseline Script - Part 2](image/week5/nano-security-baseline.sh)
 
 **Complete Script with Detailed Comments:**
 
@@ -383,8 +383,8 @@ echo "=========================================="
 
 #### Script Execution and Output
 
-![Script Output - Part 1](.monitor-server.sh)
-![Script Output - Part 2](sshd-jail2)
+![Script Output - Part 1](image/week5/.monitor-server.sh)
+![Script Output - Part 2](image/week5/sshd-jail2)
 
 **Security Verification Results:**
 - ✅ SSH password authentication: Disabled
@@ -401,7 +401,7 @@ echo "=========================================="
 
 #### Script Implementation: `monitor-server.sh`
 
-![Monitor Server Script](nano-monitor-server.sh)
+![Monitor Server Script](image/week5/nano-monitor-server.sh)
 
 **Complete Script with Detailed Comments:**
 
@@ -512,7 +512,7 @@ echo "Full log saved to: $LOGFILE"
 
 #### Script Execution
 
-![Monitoring Script Execution](.monitor-server.sh)
+![Monitoring Script Execution](image/week5/.monitor-server.sh)
 
 **Monitoring Capabilities:**
 - System identification and uptime
