@@ -322,7 +322,7 @@ ssh Suraj@192.168.56.103 "sudo sysctl net.ipv4.conf.all.accept_redirects"
 **Evidence screenshots:**
 
 Securing shared memory and system control configuration:  
-![System Control Configuration](image/week7/system control configuration.png)
+![System Control Configuration](image/week7/systemcontrolconfiguration.png)
 
 ### 7.3 Password and Authentication Hardening (Evidence)
 
