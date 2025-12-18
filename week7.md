@@ -324,7 +324,7 @@ ssh Suraj@192.168.56.103 "sudo sysctl net.ipv4.conf.all.accept_redirects"
 ```
 
 **Evidence:**  
-![sysctl Verify](image/week7/redirect.png)
+![sysctl Verify](image/week7/redirest.png)
 
 ### 7.2 File System Security Hardening (Evidence)
 
