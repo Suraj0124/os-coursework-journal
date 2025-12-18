@@ -163,7 +163,7 @@ ssh Suraj@192.168.56.103 "nmap -p- 192.168.56.103 -oN nmap-all-ports.txt"
 ```
 
 **Evidence:**  
-![nmap All Ports](image/week7/nmap-p-server_ip-oNnmap-all-ports.txt.png)
+![nmap All Ports](image/week7/nmap-p-server_ip-oNnmap-.png)
 
 **OS detection:**
 ```bash
