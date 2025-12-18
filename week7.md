@@ -1,6 +1,5 @@
 # Phase 7: Security Audit and System Evaluation (Week 7)
 
-**Student:** Suraj  
 **Server Hostname:** ubuntuserverr  
 **Server IP:** 192.168.56.103  
 **Operating System:** Ubuntu Server 24.04 LTS  
