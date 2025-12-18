@@ -139,7 +139,7 @@ ssh Suraj@192.168.56.103 "nmap 192.168.56.103"
 ```
 
 **Evidence:**  
-![nmap Basic Scan](image/week7/nmap -p.png)
+![nmap Basic Scan](image/week7/-p.png)
 
 **Service/version detection:**
 ```bash
