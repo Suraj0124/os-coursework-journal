@@ -369,7 +369,7 @@ Secure shared memory:
 ![Secure Memory](image/week7/3.2Securesharedmemory.png)
 
 Log rotation review:  
-![Log Rotation](image/week7/logrotationtop reven.png)
+![Log Rotation](image/week7/logrotationtopreven.png)
 
 ---
 
