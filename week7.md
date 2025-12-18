@@ -398,7 +398,7 @@ Rescan execution:
 ![Lynis Rescan](image/week7/rescan.png)
 
 Re-hardening and initial:  
-![Re-hardening](image/week7/rehardeningandinitial.png)
+![Re-hardening](image/week7/rehardaningandinitial.png)
 
 Post-hardening index extract (68):  
 ![Post Hardening](image/week7/rehardning.png)
