@@ -1,13 +1,5 @@
 # Week 7: Security Audit and System Evaluation (Phase 7)
 
-**Server Hostname:** ubuntuserverr  
-**Server IP:** 192.168.56.103  
-**Operating System:** Ubuntu Server 24.04 LTS  
-**Audit Window:** 17–18 Dec 2025  
-**Mandatory Tasks Covered:** Lynis, nmap, access control verification, service audit, system configuration review  
-**Deliverable Type:** Journal/Report (evidence screenshots included)
-
----
 
 ## 1) Executive Summary
 
