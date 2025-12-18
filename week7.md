@@ -395,7 +395,7 @@ Post-hardening index extract (68):
 ![Post Hardening](image/week7/rehardning.png)
 
 Final result screen:  
-![Final Audit Result](image/week7/rescan.png.png)
+![Final Audit Result](image/week7/rescan.png)
 
 Final baseline:  
 ![Final Baseline](image/week7/finalbasline.png)
