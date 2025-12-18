@@ -7,7 +7,7 @@ Welcome to my Operating Systems coursework journal. This site documents my progr
 
 ---
 
-## 📚 Table of Contents
+##  Table of Contents
 
 - [Week 1 – System Planning & Architecture](week1.md)
 - [Week 2 – Security Planning & Methodology](week2.md)
@@ -22,7 +22,7 @@ Welcome to my Operating Systems coursework journal. This site documents my progr
 
 ---
 
-## 🔧 Systems Used
+##  Systems Used
 
 | System | OS Version | Purpose |
 |--------|-------------|-----------|
@@ -31,12 +31,12 @@ Welcome to my Operating Systems coursework journal. This site documents my progr
 
 ---
 
-## 📌 Overview
+##  Overview
 
 This project follows a **dual-system** architecture, using VirtualBox with a headless Ubuntu server accessible only through SSH. Weekly deliverables include screenshots, commands, configuration files, and reflections.
 
 ---
 
-## 🔗 Navigation  
+##  Navigation  
 Use the links above to view each weekly entry.
 
