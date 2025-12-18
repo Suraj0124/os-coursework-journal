@@ -449,17 +449,7 @@ The server is now hardened with measurable improvement and a minimal exposed att
 
 All evidence screenshots are located in: `image/week7/`
 
-Key screenshots include:
-- Initial and final Lynis scans
-- nmap port scanning results
-- UFW and iptables firewall configurations
-- Service audit outputs
-- System hardening configurations
-- Password and authentication hardening
-- Audit logging setup
 
----
 
-**End of Report**
-**End of Report**
+
 
