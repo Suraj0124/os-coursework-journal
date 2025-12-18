@@ -1,14 +1,5 @@
-# Phase 7: Security Audit and System Evaluation (Week 7)
+# Week 7: Security Audit and System Evaluation (Phase 7)
 
-**Student:** Suraj  
-**Server Hostname:** ubuntuserverr  
-**Server IP:** 192.168.56.103  
-**Operating System:** Ubuntu Server 24.04 LTS  
-**Audit Window:** 17–18 Dec 2025  
-**Mandatory Tasks Covered:** Lynis, nmap, access control verification, service audit, system configuration review  
-**Deliverable Type:** Journal/Report (evidence screenshots included)
-
----
 
 ## 1) Executive Summary
 
@@ -180,7 +171,7 @@ ssh Suraj@192.168.56.103 "sudo nmap -O 192.168.56.103"
 ```
 
 **Evidence:**  
-![nmap OS Detection](image/week7/sudonmap-OSserver_ip.png)
+![nmap OS Detection](image/week7/sudonmapOserverip.png)
 
 ### 4.3 Open Ports Identified (Inventory)
 
@@ -324,14 +315,14 @@ ssh Suraj@192.168.56.103 "sudo sysctl net.ipv4.conf.all.accept_redirects"
 ```
 
 **Evidence:**  
-![sysctl Verify](image/week7/redirect.png)
+![sysctl Verify](image/week7/redirest.png)
 
 ### 7.2 File System Security Hardening (Evidence)
 
 **Evidence screenshots:**
 
 Securing shared memory and system control configuration:  
-![System Control Configuration](image/week7/system control configuration.png)
+![System Control Configuration](image/week7/systemcontrolconfiguration.png)
 
 ### 7.3 Password and Authentication Hardening (Evidence)
 
@@ -341,7 +332,7 @@ Before hardening:
 ![Before](image/week7/befor3.3.png)
 
 Strengthening password quality requirements:  
-![Password Quality](image/week7/3.3strengthenpasswordqualityrequements.png)
+![Password Quality](image/week7/3.3trengthenpasswordqualityrequirements.png)
 
 After hardening:  
 ![After](image/week7/3.3after.png)
@@ -358,7 +349,7 @@ Server IP verification:
 ![Server IP](image/week7/serverip.png)
 
 Specific tests:  
-![Specific Test](image/week7/specific test.png)
+![Specific Test](image/week7/specifictest.png)
 
 ### 7.5 Audit Logging Enhancement (auditd) + Rotation
 
@@ -378,7 +369,7 @@ Secure shared memory:
 ![Secure Memory](image/week7/3.2Securesharedmemory.png)
 
 Log rotation review:  
-![Log Rotation](image/week7/logrotationtop reven.png)
+![Log Rotation](image/week7/logrotationtopreven.png)
 
 ---
 
@@ -398,7 +389,7 @@ Rescan execution:
 ![Lynis Rescan](image/week7/rescan.png)
 
 Re-hardening and initial:  
-![Re-hardening](image/week7/rehardeningandinitial.png)
+![Re-hardening](image/week7/rehardaningandinitial.png)
 
 Post-hardening index extract (68):  
 ![Post Hardening](image/week7/rehardning.png)
