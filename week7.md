@@ -16,7 +16,7 @@ This report documents a security audit and system configuration review of the Ub
 
 **Evidence**
 - Initial score (65): ![hardeningindex](image/week7/hardeningindex.png)
-- Final score (68): ![finalauditresult](image/week7/finalauditresult.png)
+- Final score (68): ![finalauditresult](image/week7/rescan.png)
 - Extracted hardening index after remediation: ![rehardening](image/week7/rehardning.png)
 
 ---
@@ -54,7 +54,7 @@ ssh Suraj@192.168.56.103 "lynis --version"
 **Evidence**
 
 Install Lynis:  
-![Install Lynis](image/week7/3.2install.png)
+![Install Lynis](image/week7/installlynis.png)
 
 Lynis version:  
 ![Lynis Version](image/week7/lynisversion.png)
@@ -139,7 +139,7 @@ ssh Suraj@192.168.56.103 "nmap 192.168.56.103"
 ```
 
 **Evidence:**  
-![nmap Basic Scan](image/week7/nmap -p.png)
+![nmap Basic Scan](image/week7/-p.png)
 
 **Service/version detection:**
 ```bash
@@ -147,7 +147,7 @@ ssh Suraj@192.168.56.103 "nmap -sV 192.168.56.103"
 ```
 
 **Evidence:**  
-![nmap Service Version](image/week7/-sVserver_ip.png)
+![nmap Service Version](image/week7/serverip.png)
 
 **Common ports (1–1000):**
 ```bash
@@ -155,7 +155,7 @@ ssh Suraj@192.168.56.103 "nmap -p 1-1000 -sV 192.168.56.103"
 ```
 
 **Evidence:**  
-![nmap Common Ports](image/week7/nmap -p 1-1000 -sV server_ip.png)
+![nmap Common Ports](image/week7/nmap-p1-1000-sVserver_ip.png)
 
 **All ports to output file:**
 ```bash
@@ -163,7 +163,7 @@ ssh Suraj@192.168.56.103 "nmap -p- 192.168.56.103 -oN nmap-all-ports.txt"
 ```
 
 **Evidence:**  
-![nmap All Ports](image/week7/nmap -p- server_ip -oN nmap-all-ports.txt.png)
+![nmap All Ports](image/week7/nmap-p-server_ip-oNnmap-.png)
 
 **OS detection:**
 ```bash
@@ -254,7 +254,7 @@ ssh Suraj@192.168.56.103 "sudo ss -tulnp"
 ```
 
 **Evidence:**  
-![Listening Services](image/week7/list-unit-files.png)
+![Listening Services](image/week7/ss-tulnp.png)
 
 ### 6.2 Running Services
 ```bash
@@ -262,7 +262,7 @@ ssh Suraj@192.168.56.103 "systemctl list-units --type=service --state=running"
 ```
 
 **Evidence:**  
-![Running Services](image/week7/running services.png)
+![Running Services](image/week7/list-unit-files.png)
 
 ### 6.3 netstat Note (Legacy Tool Not Installed)
 ```bash
@@ -299,7 +299,7 @@ Result: `netstat: command not found` (Ubuntu 24.04 minimal install commonly omit
 ![sysctl Config](image/week7/syscookies.png)
 
 **sysctl configuration file updates:**  
-![sysctl Parameters](image/week7/kernesecurityp arameters.png)
+![sysctl Parameters](image/week7/kernesecurityparameters.png)
 
 **Apply:**
 ```bash
@@ -385,8 +385,8 @@ ssh Suraj@192.168.56.103 "grep \"Hardening index\" ~/lynis-hardened-*.log"
 
 **Evidence:**
 
-Rescan execution:  
-![Lynis Rescan](image/week7/rescan.png)
+initial execution:  
+![Lynis Rescan](image/week7/finalauditresult.png)
 
 Re-hardening and initial:  
 ![Re-hardening](image/week7/rehardaningandinitial.png)
@@ -395,13 +395,12 @@ Post-hardening index extract (68):
 ![Post Hardening](image/week7/rehardning.png)
 
 Final result screen:  
-![Final Audit Result](image/week7/finalauditresult.png)
+![Final Audit Result](image/week7/rescan.png)
 
 Final baseline:  
 ![Final Baseline](image/week7/finalbasline.png)
 
-Final screen:  
-![Final Screen](image/week7/final.png)
+
 
 ### 8.2 Compare Warnings Before/After
 ```bash
