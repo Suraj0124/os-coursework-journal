@@ -1,4 +1,4 @@
-# Phase 7: Security Audit and System Evaluation (Week 7)
+# Week 7: Security Audit and System Evaluation (Phase 7)
 
 **Server Hostname:** ubuntuserverr  
 **Server IP:** 192.168.56.103  
