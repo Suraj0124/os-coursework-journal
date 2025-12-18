@@ -349,7 +349,7 @@ Server IP verification:
 ![Server IP](image/week7/serverip.png)
 
 Specific tests:  
-![Specific Test](image/week7/specific test.png)
+![Specific Test](image/week7/specifictest.png)
 
 ### 7.5 Audit Logging Enhancement (auditd) + Rotation
 
