@@ -101,7 +101,7 @@ ssh Suraj@192.168.56.103 "wc -l lynis-warnings.txt"
 Result: 0 warnings
 
 **Evidence:**  
-![Warnings](image/week7/warningt.png)
+![Warnings](image/week7/warningtxt.png)
 
 **Suggestions (count)**
 ```bash
@@ -138,7 +138,7 @@ ssh Suraj@192.168.56.103 "sudo apt install nmap -y"
 ```
 
 **Evidence:**  
-![Install nmap](image/week7/nmapinstall.png)
+![Install nmap](image/week7/nmapinstal.png)
 
 ### 4.2 Scanning Commands (Correct Target IP Used)
 
