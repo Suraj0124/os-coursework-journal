@@ -234,11 +234,4 @@ Vulnerabilities in running network services could be exploited to compromise the
 - Trade-off analysis between security and performance
 
 
----
-
-## References
-[1] "SSH Security Best Practices," Ubuntu Documentation. [Online]. Available: https://ubuntu.com/server/docs/security-best-practices [Accessed: Dec. 11, 2025]
-
-[2] "UFW - Uncomplicated Firewall," Ubuntu Wiki. [Online]. Available: https://wiki.ubuntu.com/UncomplicatedFirewall [Accessed: Dec. 11, 2025]
-
-*Add additional references as you conduct research*
+--
