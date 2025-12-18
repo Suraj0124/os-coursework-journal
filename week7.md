@@ -432,22 +432,17 @@ Security priorities:
 
 All mandatory Week 7 audit tasks were completed and evidenced:
 
-✅ Lynis security scanning with saved reports and before/after scoring (65 → 68)  
-✅ nmap network assessment with open port inventory and justification (22/SSH, 80/HTTP)  
-✅ Access control verification via UFW/iptables review and blocked-port test (telnet 23 blocked)  
-✅ Service audit using ss + systemctl, including justified service inventory  
-✅ System configuration review with kernel hardening and audit logging enablement  
-✅ Remaining risk assessment documented clearly
+ Lynis security scanning with saved reports and before/after scoring (65 → 68)  
+ nmap network assessment with open port inventory and justification (22/SSH, 80/HTTP)  
+ Access control verification via UFW/iptables review and blocked-port test (telnet 23 blocked)  
+ Service audit using ss + systemctl, including justified service inventory  
+ System configuration review with kernel hardening and audit logging enablement  
+ Remaining risk assessment documented clearly
 
 The server is now hardened with measurable improvement and a minimal exposed attack surface suitable for a controlled deployment environment.
 
 ---
 
-## Appendix A: Full Evidence Gallery (All Week 7 Screenshots)
-
-### Complete Screenshot Reference
-
-All evidence screenshots are located in: `image/week7/`
 
 
 
