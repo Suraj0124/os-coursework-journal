@@ -138,7 +138,7 @@ ssh Suraj@192.168.56.103 "sudo apt install nmap -y"
 ```
 
 **Evidence:**  
-![Install nmap](image/week7/nmapinstall.png)
+![Install nmap](image/week7/nmapinstal.png)
 
 ### 4.2 Scanning Commands (Correct Target IP Used)
 
