@@ -180,7 +180,7 @@ ssh Suraj@192.168.56.103 "sudo nmap -O 192.168.56.103"
 ```
 
 **Evidence:**  
-![nmap OS Detection](image/week7/sudonmapOSserverip.png)
+![nmap OS Detection](image/week7/sudonmapOserverip.png)
 
 ### 4.3 Open Ports Identified (Inventory)
 
