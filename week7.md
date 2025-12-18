@@ -299,7 +299,7 @@ Result: `netstat: command not found` (Ubuntu 24.04 minimal install commonly omit
 ![sysctl Config](image/week7/syscookies.png)
 
 **sysctl configuration file updates:**  
-![sysctl Parameters](image/week7/kernesecurityp arameters.png)
+![sysctl Parameters](image/week7/kernesecurityparameters.png)
 
 **Apply:**
 ```bash
