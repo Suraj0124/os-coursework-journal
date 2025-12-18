@@ -180,7 +180,7 @@ ssh Suraj@192.168.56.103 "sudo nmap -O 192.168.56.103"
 ```
 
 **Evidence:**  
-![nmap OS Detection](image/week7/sudonmap-OSserver_ip.png)
+![nmap OS Detection](image/week7/sudonmapOSserverip.png)
 
 ### 4.3 Open Ports Identified (Inventory)
 
@@ -341,7 +341,7 @@ Before hardening:
 ![Before](image/week7/befor3.3.png)
 
 Strengthening password quality requirements:  
-![Password Quality](image/week7/3.3strengthenpasswordqualityrequements.png)
+![Password Quality](image/week7/3.3trengthenpasswordqualityrequirements.png)
 
 After hardening:  
 ![After](image/week7/3.3after.png)
