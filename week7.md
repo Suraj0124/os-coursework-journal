@@ -26,7 +26,7 @@ This report documents a security audit and system configuration review of the Ub
 **Evidence**
 - Initial score (65): ![hardeningindex](image/week7/hardeningindex.png)
 - Final score (68): ![finalauditresult](image/week7/finalauditresult.png)
-- Extracted hardening index after remediation: ![rehardning](image/week7/rehardning.png)
+- Extracted hardening index after remediation: ![rehardening](image/week7/rehardning.png)
 
 ---
 
@@ -63,10 +63,10 @@ ssh Suraj@192.168.56.103 "lynis --version"
 **Evidence**
 
 Install Lynis:  
-![Install Lynis](image/week7/install-lynis.png)
+![Install Lynis](image/week7/3.2install.png)
 
 Lynis version:  
-![Lynis Version](image/week7/lynis-version.png)
+![Lynis Version](image/week7/lynisversion.png)
 
 ### 3.2 Run Initial Audit + Save Report
 ```bash
@@ -78,7 +78,7 @@ ssh Suraj@192.168.56.103 "sudo chown \$USER:\$USER ~/lynis-initial-*.log"
 **Evidence**
 
 Lynis audit running:  
-![Lynis Audit Running](image/week7/lynis-audit-running.png)
+![Lynis Audit](image/week7/lynisaudit.png)
 
 ### 3.3 Extract and Summarise Initial Results
 
@@ -101,7 +101,7 @@ ssh Suraj@192.168.56.103 "wc -l lynis-warnings.txt"
 Result: 0 warnings
 
 **Evidence:**  
-![Warnings Count](image/week7/warnings-count.png)
+![Warnings](image/week7/warningt.png)
 
 **Suggestions (count)**
 ```bash
@@ -113,19 +113,11 @@ Result: 48 suggestions
 
 **Evidence:**
 
-Suggestions count/list:  
-![Suggestions Count](image/week7/suggestions-count.png)
+Suggestions file:  
+![Suggestions](image/week7/suggestion.txt.png)
 
-All suggestions output:  
-![All Suggestions](image/week7/all-suggestions.png)
-
-**Sample test categories**
-```bash
-ssh Suraj@192.168.56.103 "grep \"Test:\" ~/lynis-initial-*.log | head -20"
-```
-
-**Evidence:**  
-![Test Categories](image/week7/test-categories.png)
+All suggestions:  
+![All Suggestions](image/week7/allsuggestions.png)
 
 ### Initial Audit Summary Table
 
@@ -146,7 +138,7 @@ ssh Suraj@192.168.56.103 "sudo apt install nmap -y"
 ```
 
 **Evidence:**  
-![Install nmap](image/week7/install-nmap.png)
+![Install nmap](image/week7/nmapinstall.png)
 
 ### 4.2 Scanning Commands (Correct Target IP Used)
 
@@ -156,7 +148,7 @@ ssh Suraj@192.168.56.103 "nmap 192.168.56.103"
 ```
 
 **Evidence:**  
-![nmap Basic Scan](image/week7/nmap-basic.png)
+![nmap Basic Scan](image/week7/nmap -p.png)
 
 **Service/version detection:**
 ```bash
@@ -164,7 +156,7 @@ ssh Suraj@192.168.56.103 "nmap -sV 192.168.56.103"
 ```
 
 **Evidence:**  
-![nmap Service Version](image/week7/nmap-service-version.png)
+![nmap Service Version](image/week7/-sVserver_ip.png)
 
 **Common ports (1–1000):**
 ```bash
@@ -172,7 +164,7 @@ ssh Suraj@192.168.56.103 "nmap -p 1-1000 -sV 192.168.56.103"
 ```
 
 **Evidence:**  
-![nmap Common Ports](image/week7/nmap-common-ports.png)
+![nmap Common Ports](image/week7/nmap -p 1-1000 -sV server_ip.png)
 
 **All ports to output file:**
 ```bash
@@ -180,7 +172,7 @@ ssh Suraj@192.168.56.103 "nmap -p- 192.168.56.103 -oN nmap-all-ports.txt"
 ```
 
 **Evidence:**  
-![nmap All Ports](image/week7/nmap-all-ports.png)
+![nmap All Ports](image/week7/nmap -p- server_ip -oN nmap-all-ports.txt.png)
 
 **OS detection:**
 ```bash
@@ -188,7 +180,7 @@ ssh Suraj@192.168.56.103 "sudo nmap -O 192.168.56.103"
 ```
 
 **Evidence:**  
-![nmap OS Detection](image/week7/nmap-os-detection.png)
+![nmap OS Detection](image/week7/sudonmap-OSserver_ip.png)
 
 ### 4.3 Open Ports Identified (Inventory)
 
@@ -213,13 +205,13 @@ ssh Suraj@192.168.56.103 "sudo ufw show raw"
 **Evidence**
 
 Numbered rules:  
-![UFW Numbered](image/week7/ufw-numbered.png)
+![UFW Numbered](image/week7/ufwnumbered.png)
 
 Verbose status:  
-![UFW Verbose](image/week7/ufw-verbose.png)
+![UFW Verbose](image/week7/ufwverbose.png)
 
-Raw rules:  
-![UFW Raw](image/week7/ufw-raw.png)
+Show raw:  
+![UFW Show Raw](image/week7/ufnshowraw.png)
 
 **Observed security posture**
 - UFW: active
@@ -244,7 +236,7 @@ ssh Suraj@192.168.56.103 "telnet 192.168.56.103 23"
 Result: connection timed out (blocked)
 
 **Evidence:**  
-![Blocked Port Test](image/week7/blocked-port-test.png)
+![Blocked Port Test](image/week7/telnet.png)
 
 ### 5.4 SSH Security Verification (Operational)
 
@@ -259,7 +251,7 @@ ssh Suraj@192.168.56.103 "sudo ss -tulnp"
 ```
 
 **Evidence:**  
-![SSH Listening](image/week7/ssh-listening.png)
+![ss-tulnp](image/week7/ss-tulnp.png)
 
 ---
 
@@ -271,7 +263,7 @@ ssh Suraj@192.168.56.103 "sudo ss -tulnp"
 ```
 
 **Evidence:**  
-![Listening Services](image/week7/listening-services.png)
+![Listening Services](image/week7/list-unit-files.png)
 
 ### 6.2 Running Services
 ```bash
@@ -279,7 +271,7 @@ ssh Suraj@192.168.56.103 "systemctl list-units --type=service --state=running"
 ```
 
 **Evidence:**  
-![Running Services](image/week7/running-services.png)
+![Running Services](image/week7/running services.png)
 
 ### 6.3 netstat Note (Legacy Tool Not Installed)
 ```bash
@@ -289,7 +281,7 @@ ssh Suraj@192.168.56.103 "sudo netstat -tulnp"
 Result: `netstat: command not found` (Ubuntu 24.04 minimal install commonly omits net-tools)
 
 **Evidence:**  
-![netstat Not Found](image/week7/netstat-not-found.png)
+![netstat Not Found](image/week7/netstat.png)
 
 ### 6.4 Service Inventory with Justifications
 
@@ -313,10 +305,10 @@ Result: `netstat: command not found` (Ubuntu 24.04 minimal install commonly omit
 ### 7.1 Kernel Security Hardening (sysctl)
 
 **Configuration evidence:**  
-![sysctl Config](image/week7/sysctl-config.png)
+![sysctl Config](image/week7/syscookies.png)
 
 **sysctl configuration file updates:**  
-![sysctl File Updates](image/week7/sysctl-file-updates.png)
+![sysctl Parameters](image/week7/kernesecurityp arameters.png)
 
 **Apply:**
 ```bash
@@ -324,7 +316,7 @@ ssh Suraj@192.168.56.103 "sudo sysctl -p"
 ```
 
 **Evidence:**  
-![sysctl Apply](image/week7/sysctl-apply.png)
+![sysctl Apply](image/week7/-p.png)
 
 **Verify (example):**
 ```bash
@@ -332,46 +324,41 @@ ssh Suraj@192.168.56.103 "sudo sysctl net.ipv4.conf.all.accept_redirects"
 ```
 
 **Evidence:**  
-![sysctl Verify](image/week7/sysctl-verify.png)
-
-**Additional sysctl-related evidence screenshots:**
-
-Kernel security parameters:  
-![Kernel Security](image/week7/kernel-security.png)
-
-SYN cookies evidence:  
-![SYN Cookies](image/week7/syn-cookies.png)
+![sysctl Verify](image/week7/redirect.png)
 
 ### 7.2 File System Security Hardening (Evidence)
 
 **Evidence screenshots:**
 
-Step/command capture:  
-![File System Step](image/week7/filesystem-step.png)
-
-Securing shared memory:  
-![Shared Memory](image/week7/shared-memory.png)
+Securing shared memory and system control configuration:  
+![System Control Configuration](image/week7/system control configuration.png)
 
 ### 7.3 Password and Authentication Hardening (Evidence)
 
 **Evidence screenshots:**
 
-Before:  
-![Password Before](image/week7/password-before.png)
+Before hardening:  
+![Before](image/week7/befor3.3.png)
 
 Strengthening password quality requirements:  
-![Password Quality](image/week7/password-quality.png)
+![Password Quality](image/week7/3.3strengthenpasswordqualityrequements.png)
 
-After:  
-![Password After](image/week7/password-after.png)
+After hardening:  
+![After](image/week7/3.3after.png)
 
 ### 7.4 Service Hardening / Minimisation (Evidence)
 
-Enabled service list review:  
-![Service List](image/week7/service-list.png)
+Enabled service audit:  
+![Enabled Audit](image/week7/enableauditd.png)
 
-Service hardening step:  
-![Service Hardening](image/week7/service-hardening.png)
+Start audit service:  
+![Start Audit](image/week7/startauditd.png)
+
+Server IP verification:  
+![Server IP](image/week7/serverip.png)
+
+Specific tests:  
+![Specific Test](image/week7/specific test.png)
 
 ### 7.5 Audit Logging Enhancement (auditd) + Rotation
 
@@ -385,16 +372,13 @@ ssh Suraj@192.168.56.103 "sudo systemctl start auditd"
 **Evidence:**
 
 Install auditd/plugins:  
-![Install auditd](image/week7/install-auditd.png)
+![Install auditd](image/week7/installauditdaudispd-plugin.png)
 
-Enable auditd:  
-![Enable auditd](image/week7/enable-auditd.png)
+Secure shared memory:  
+![Secure Memory](image/week7/3.2Securesharedmemory.png)
 
-Start auditd:  
-![Start auditd](image/week7/start-auditd.png)
-
-**Log rotation review evidence:**  
-![Log Rotation](image/week7/log-rotation.png)
+Log rotation review:  
+![Log Rotation](image/week7/logrotationtop reven.png)
 
 ---
 
@@ -411,13 +395,22 @@ ssh Suraj@192.168.56.103 "grep \"Hardening index\" ~/lynis-hardened-*.log"
 **Evidence:**
 
 Rescan execution:  
-![Lynis Rescan](image/week7/lynis-rescan.png)
+![Lynis Rescan](image/week7/rescan.png)
+
+Re-hardening and initial:  
+![Re-hardening](image/week7/rehardeningandinitial.png)
 
 Post-hardening index extract (68):  
-![rehardning](image/week7/rehardning.png)
+![Post Hardening](image/week7/rehardning.png)
 
 Final result screen:  
-![finalauditresult](image/week7/finalauditresult.png)
+![Final Audit Result](image/week7/finalauditresult.png)
+
+Final baseline:  
+![Final Baseline](image/week7/finalbasline.png)
+
+Final screen:  
+![Final Screen](image/week7/final.png)
 
 ### 8.2 Compare Warnings Before/After
 ```bash
@@ -425,8 +418,7 @@ ssh Suraj@192.168.56.103 "grep \"Warning:\" lynis-initial-*.log | wc -l"
 ssh Suraj@192.168.56.103 "grep \"Warning:\" lynis-hardened-*.log | wc -l"
 ```
 
-**Evidence:**  
-![Warnings Compare](image/week7/warnings-compare.png)
+Result: 0 warnings before and after
 
 ---
 
@@ -441,11 +433,8 @@ ssh Suraj@192.168.56.103 "grep \"Warning:\" lynis-hardened-*.log | wc -l"
 
 **Supporting evidence screenshots:**
 
-Final screen:  
-![Final Screen](image/week7/final-screen.png)
-
-Final baseline verification:  
-![Final Baseline](image/week7/final-baseline.png)
+Security priorities:  
+![Security Priorities](image/week7/security-priorities.txt.png)
 
 ---
 
@@ -466,28 +455,21 @@ The server is now hardened with measurable improvement and a minimal exposed att
 
 ## Appendix A: Full Evidence Gallery (All Week 7 Screenshots)
 
-### Lynis
-- [All Lynis screenshots listed above]
+### Complete Screenshot Reference
 
-### nmap
-- [All nmap screenshots listed above]
+All evidence screenshots are located in: `image/week7/`
 
-### Firewall / Access Control
-- [All firewall screenshots listed above]
-
-### Services
-- [All service screenshots listed above]
-
-### System Hardening
-- [All hardening screenshots listed above]
-
-### File System / Password / Services / Logging
-- [All configuration screenshots listed above]
-
-### Final Verification
-- [All final verification screenshots listed above]
+Key screenshots include:
+- Initial and final Lynis scans
+- nmap port scanning results
+- UFW and iptables firewall configurations
+- Service audit outputs
+- System hardening configurations
+- Password and authentication hardening
+- Audit logging setup
 
 ---
 
+**End of Report**
 **End of Report**
 
