@@ -262,7 +262,7 @@ ssh Suraj@192.168.56.103 "systemctl list-units --type=service --state=running"
 ```
 
 **Evidence:**  
-![Running Services](image/week7/running services.png)
+![Running Services](image/week7/runningservices.png)
 
 ### 6.3 netstat Note (Legacy Tool Not Installed)
 ```bash
