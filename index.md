@@ -17,7 +17,7 @@ Welcome to my Operating Systems coursework journal. This site documents my progr
 - [Week 6 – Performance Testing & Analysis](week6.md)
 - [Week 7 – Security Audit & Final Evaluation](week7.md)
 - [Week 7 – security](security-audit-report.md)
-- [IMAGE – IMAGE](image)
+
 
 
 ---
