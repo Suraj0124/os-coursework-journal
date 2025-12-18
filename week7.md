@@ -101,7 +101,7 @@ ssh Suraj@192.168.56.103 "wc -l lynis-warnings.txt"
 Result: 0 warnings
 
 **Evidence:**  
-![Warnings](image/week7/warningt.png)
+![Warnings](image/week7/warningtxt.png)
 
 **Suggestions (count)**
 ```bash
